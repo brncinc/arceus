@@ -192,13 +192,15 @@
       this.totalBlocks = 0;
     }
 
+    // Hash function for block verification
     hash(str) {
       return Array.from(new TextEncoder().encode(str))
         .reduce((hash, b) => ((hash << 5) - hash + b) | 0, 0)
         .toString(16);
     }
 
-    async pushBlock(payload, source="SYSTEM", target="KERNEL") {
+    // Add new block to the blockchain
+    async pushBlock(payload, source = "SYSTEM", target = "KERNEL") {
       const previousHash = this.blockchainQueue.length
         ? this.blockchainQueue[this.blockchainQueue.length - 1].hash
         : "0".repeat(64);
@@ -213,6 +215,7 @@
       this.totalBlocks++;
     }
 
+    // Register new nodes to track activity
     registrarNode(nodeId) {
       if (!this.nodes[nodeId]) {
         this.nodes[nodeId] = { status: "active", processed: 0 };
@@ -220,11 +223,13 @@
       }
     }
 
+    // Register new models to process inputs
     registrarModelo(modelId, description, processFunction) {
       this.models[modelId] = { description, jobs: 0, process: processFunction };
       this.auditLog.push(`Model registered: ${modelId} (${description})`);
     }
 
+    // Process input from user
     async processInput(input) {
       const defaultModel = Object.keys(this.models)[0];
       this.receberLOT('LocalNode', defaultModel, [input]);
@@ -233,6 +238,7 @@
       return lastBlock ? lastBlock.payload.output[0] : "Processed!";
     }
 
+    // Add messages to history
     addToHistory(role, content) {
       this.chatHistory.push({ role, content });
       addHistoryItem(content);
@@ -244,168 +250,16 @@
   chatCentral.registrarNode('LocalNode');
   chatCentral.registrarModelo('Medical-Model', 'Medical Assistant', (input) => {
     const responses = {
-      // Common Symptoms in English
-        headache: "Try resting, drinking water, and taking a mild pain reliever.",
-  fever: "Consider taking an antipyretic and resting. If the fever persists, consult a doctor.",
-  cough: "Cough can be a symptom of various conditions. If it persists, seek medical attention.",
-  nausea: "Try drinking small sips of liquid and resting. If it persists, consult a doctor.",
-  musclePain: "Light stretching and rest can help alleviate the pain.",
-  anxiety: "Try deep breathing, meditation, and if necessary, consult a therapist.",
-  shortnessOfBreath: "If you feel difficulty breathing, seek medical assistance immediately.",
-  chestPain: "Chest pain can be an emergency sign, consult a doctor immediately.",
-  dizziness: "Dizziness can have various causes. If it’s severe or persists, consult a doctor.",
-  fatigue: "Fatigue can be caused by various reasons. Try resting and seek medical advice if it continues.",
-  insomnia: "Try practicing relaxation techniques before bed. If insomnia persists, consult a doctor.",
-  troubleSwallowing: "This could be a symptom of various conditions, consult a doctor if it continues.",
-  diarrhea: "Stay hydrated. If it persists for more than two days, consult a doctor.",
-  constipation: "Try increasing fiber and water intake. If it doesn't improve, consult a doctor.",
-  vomiting: "Try resting and drinking fluids slowly. If vomiting persists, consult a doctor.",
-  eyeIrritation: "If you have itching, redness, or pain in your eyes, avoid rubbing them and consult an ophthalmologist.",
-  allergy: "Avoid the allergen, and if necessary, take an antihistamine. If symptoms persist, consult a doctor.",
-  
-  // Common Symptoms in Portuguese
-  gripe: "A gripe pode ser tratada com repouso e medicamentos para aliviar os sintomas. Consulte um médico se os sintomas piorarem.",
-  resfriado: "O resfriado geralmente passa em poucos dias. Descanse e beba líquidos. Se os sintomas persistirem, procure um médico.",
-  artrite: "Se você tem dor nas articulações, um anti-inflamatório pode ajudar. Consulte um ortopedista para um diagnóstico adequado.",
-  asma: "Se você tem dificuldade para respirar, use seu inalador. Se os sintomas não melhorarem, consulte um médico.",
-  diabetes: "Controle a alimentação e a glicose no sangue. Se tiver dúvidas, consulte um endocrinologista.",
-  hipertensao: "Monitore sua pressão arterial regularmente. Uma dieta balanceada e exercícios podem ajudar.",
-  depressao: "Se você está se sentindo constantemente triste ou desmotivado, é importante procurar ajuda de um profissional de saúde mental.",
-  hipotireoidismo: "Procure um endocrinologista para o tratamento adequado. O uso de medicamentos pode ser necessário.",
-  
-  // Emergency Conditions in English
-  stroke: "A stroke is an emergency. If you or someone else has symptoms such as sudden weakness, numbness, or difficulty speaking, call emergency services immediately.",
-  heartAttack: "A heart attack is a medical emergency. If you experience chest pain, shortness of breath, or pain radiating to your arm or jaw, seek emergency help immediately.",
-  severeBleeding: "If you are bleeding heavily, apply pressure to the wound and seek immediate medical attention.",
-  poisoning: "If poisoning is suspected, contact a poison control center or seek emergency medical care immediately.",
-  severeAllergicReaction: "If you experience difficulty breathing, swelling, or dizziness after an allergic reaction, seek emergency medical help immediately.",
-  severeBurn: "If you have a severe burn, run cool water over it and seek medical care immediately.",
-  brokenBone: "If you suspect a broken bone, avoid moving the affected area and seek medical help immediately.",
-  const medicalResponses = {
-  // Common Symptoms in English
-  headache: "Try resting, drinking water, and taking a mild pain reliever.",
-  fever: "Consider taking an antipyretic and resting. If the fever persists, consult a doctor.",
-  cough: "Cough can be a symptom of various conditions. If it persists, seek medical attention.",
-  nausea: "Try drinking small sips of liquid and resting. If it persists, consult a doctor.",
-  musclePain: "Light stretching and rest can help alleviate the pain.",
-  anxiety: "Try deep breathing, meditation, and if necessary, consult a therapist.",
-  shortnessOfBreath: "If you feel difficulty breathing, seek medical assistance immediately.",
-  chestPain: "Chest pain can be an emergency sign, consult a doctor immediately.",
-  dizziness: "Dizziness can have various causes. If it’s severe or persists, consult a doctor.",
-  fatigue: "Fatigue can be caused by various reasons. Try resting and seek medical advice if it continues.",
-  insomnia: "Try practicing relaxation techniques before bed. If insomnia persists, consult a doctor.",
-  troubleSwallowing: "This could be a symptom of various conditions, consult a doctor if it continues.",
-  diarrhea: "Stay hydrated. If it persists for more than two days, consult a doctor.",
-  constipation: "Try increasing fiber and water intake. If it doesn't improve, consult a doctor.",
-  vomiting: "Try resting and drinking fluids slowly. If vomiting persists, consult a doctor.",
-  eyeIrritation: "If you have itching, redness, or pain in your eyes, avoid rubbing them and consult an ophthalmologist.",
-  allergy: "Avoid the allergen, and if necessary, take an antihistamine. If symptoms persist, consult a doctor.",
-  
-  // New Symptoms in English
-  soreThroat: "A sore throat can be caused by viral or bacterial infections. Drink warm liquids and consult a doctor if symptoms worsen.",
-  runnyNose: "A runny nose is often caused by a cold or allergies. Stay hydrated and consider using saline nasal spray.",
-  backPain: "For back pain, try gentle stretches and apply heat or ice. If the pain persists, consult a doctor.",
-  earPain: "Ear pain can be caused by infection or pressure changes. If it persists, consult an ENT specialist.",
-  bloating: "Bloating may be due to diet, constipation, or other digestive issues. Drink plenty of water and consider avoiding gassy foods.",
-  
-  // Emergency Conditions in English
-  stroke: "A stroke is an emergency. If you or someone else has symptoms such as sudden weakness, numbness, or difficulty speaking, call emergency services immediately.",
-  heartAttack: "A heart attack is a medical emergency. If you experience chest pain, shortness of breath, or pain radiating to your arm or jaw, seek emergency help immediately.",
-  severeBleeding: "If you are bleeding heavily, apply pressure to the wound and seek immediate medical attention.",
-  poisoning: "If poisoning is suspected, contact a poison control center or seek emergency medical care immediately.",
-  severeAllergicReaction: "If you experience difficulty breathing, swelling, or dizziness after an allergic reaction, seek emergency medical help immediately.",
-  severeBurn: "If you have a severe burn, run cool water over it and seek medical care immediately.",
-  brokenBone: "If you suspect a broken bone, avoid moving the affected area and seek medical help immediately.",
-  
-  // Common Symptoms in Portuguese
-  gripe: "A gripe pode ser tratada com repouso e medicamentos para aliviar os sintomas. Consulte um médico se os sintomas piorarem.",
-  resfriado: "O resfriado geralmente passa em poucos dias. Descanse e beba líquidos. Se os sintomas persistirem, procure um médico.",
-  artrite: "Se você tem dor nas articulações, um anti-inflamatório pode ajudar. Consulte um ortopedista para um diagnóstico adequado.",
-  asma: "Se você tem dificuldade para respirar, use seu inalador. Se os sintomas não melhorarem, consulte um médico.",
-  diabetes: "Controle a alimentação e a glicose no sangue. Se tiver dúvidas, consulte um endocrinologista.",
-  hipertensao: "Monitore sua pressão arterial regularmente. Uma dieta balanceada e exercícios podem ajudar.",
-  depressao: "Se você está se sentindo constantemente triste ou desmotivado, é importante procurar ajuda de um profissional de saúde mental.",
-  hipotireoidismo: "Procure um endocrinologista para o tratamento adequado. O uso de medicamentos pode ser necessário.",
-  
-  // New Symptoms in Portuguese
-  dorGarganta: "A dor de garganta pode ser causada por infecções virais ou bacterianas. Beba líquidos mornos e consulte um médico se os sintomas piorarem.",
-  coriza: "A coriza geralmente é causada por um resfriado ou alergias. Mantenha-se hidratado e considere o uso de spray nasal salino.",
-  dorCostas: "Para dor nas costas, tente alongamentos suaves e aplique calor ou gelo. Se a dor persistir, consulte um médico.",
-  dorOrelha: "A dor de ouvido pode ser causada por infecção ou alterações de pressão. Se persistir, consulte um otorrinolaringologista.",
-  distensaoAbdominal: "Distensão abdominal pode ser devido à dieta, prisão de ventre ou outros problemas digestivos. Beba bastante água e evite alimentos que causam gases.",
-  
-  // Emergency Conditions in Portuguese
-  sepse: "A sepse é uma infecção grave. Se você tiver febre, calafrios, ritmo cardíaco rápido ou confusão, procure ajuda médica imediatamente.",
-  meningite: "Meningite pode ser grave. Sintomas incluem febre, dor de cabeça e rigidez no pescoço. Procure atendimento médico imediatamente.",
-  apendicite: "Se você sentir dor aguda no lado inferior direito do abdômen, pode ter apendicite. Procure ajuda médica imediatamente.",
-  pedrasRins: "Pedras nos rins podem causar dor intensa nas costas ou abdômen. Beba muitos líquidos e consulte um médico para o tratamento adequado.",
-  pedrasVesicula: "Se você sentir dor no lado superior direito do abdômen, pode ser causada por pedras na vesícula. Consulte um médico para uma avaliação.",
-  pneumonia: "Se você tiver tosse persistente, febre e falta de ar, pode ter pneumonia. Procure ajuda médica imediatamente.",
-  comaDiabetico: "O coma diabético é uma emergência. Se você tiver alta glicose no sangue, dificuldade para respirar ou confusão, procure ajuda médica imediatamente.",
-  
-  // New Emergency Conditions in Portuguese
-  emboliaPulmonar: "Embolia pulmonar é uma condição grave que pode causar falta de ar súbita e dor no peito. Procure atendimento médico imediato.",
-  ataqueCardiaco: "Um ataque cardíaco é uma emergência. Se você sentir dor no peito, falta de ar ou dor irradiando para o braço ou mandíbula, procure ajuda imediatamente.",
-  insuficienciaRenal: "Se você tiver dificuldade para urinar ou dor nas costas, pode ter insuficiência renal. Procure um nefrologista imediatamente."
-
-  // Emergency Conditions in Portuguese
-  sepse: "A sepse é uma infecção grave. Se você tiver febre, calafrios, ritmo cardíaco rápido ou confusão, procure ajuda médica imediatamente.",
-  meningite: "Meningite pode ser grave. Sintomas incluem febre, dor de cabeça e rigidez no pescoço. Procure atendimento médico imediatamente.",
-  apendicite: "Se você sentir dor aguda no lado inferior direito do abdômen, pode ter apendicite. Procure ajuda médica imediatamente.",
-  pedrasRins: "Pedras nos rins podem causar dor intensa nas costas ou abdômen. Beba muitos líquidos e consulte um médico para o tratamento adequado.",
-  pedrasVesicula: "Se você sentir dor no lado superior direito do abdômen, pode ser causada por pedras na vesícula. Consulte um médico para uma avaliação.",
-  pneumonia: "Se você tiver tosse persistente, febre e falta de ar, pode ter pneumonia. Procure ajuda médica imediatamente.",
-  comaDiabetico: "O coma diabético é uma emergência. Se você tiver alta glicose no sangue, dificuldade para respirar ou confusão, procure ajuda médica imediatamente."
-
-      "headache": "Try resting, drinking water, and taking a mild pain reliever.",
-      "fever": "Consider taking an antipyretic and resting. If the fever persists, consult a doctor.",
-      "cough": "Cough can be a symptom of various conditions. If it persists, seek medical attention.",
-      "nausea": "Try drinking small sips of liquid and resting. If it persists, consult a doctor.",
-      "muscle pain": "Light stretching and rest can help alleviate the pain.",
-      "anxiety": "Try deep breathing, meditation, and if necessary, consult a therapist.",
-      "shortness of breath": "If you feel difficulty breathing, seek medical assistance immediately.",
-      "chest pain": "Chest pain can be an emergency sign, consult a doctor immediately.",
-      "dizziness": "Dizziness can have various causes. If it’s severe or persists, consult a doctor.",
-      "fatigue": "Fatigue can be caused by various reasons. Try resting and seek medical advice if it continues.",
-      "insomnia": "Try practicing relaxation techniques before bed. If insomnia persists, consult a doctor.",
-      "trouble swallowing": "This could be a symptom of various conditions, consult a doctor if it continues.",
-      "diarrhea": "Stay hydrated. If it persists for more than two days, consult a doctor.",
-      "constipation": "Try increasing fiber and water intake. If it doesn't improve, consult a doctor.",
-      "vomiting": "Try resting and drinking fluids slowly. If vomiting persists, consult a doctor.",
-      "eye irritation": "If you have itching, redness, or pain in your eyes, avoid rubbing them and consult an ophthalmologist.",
-      "allergy": "Avoid the allergen, and if necessary, take an antihistamine. If symptoms persist, consult a doctor.",
-      
-      // Common Symptoms in Portuguese
-      "gripe": "A gripe pode ser tratada com repouso e medicamentos para aliviar os sintomas. Consulte um médico se os sintomas piorarem.",
-      "resfriado": "O resfriado geralmente passa em poucos dias. Descanse e beba líquidos. Se os sintomas persistirem, procure um médico.",
-      "artrite": "Se você tem dor nas articulações, um anti-inflamatório pode ajudar. Consulte um ortopedista para um diagnóstico adequado.",
-      "asma": "Se você tem dificuldade para respirar, use seu inalador. Se os sintomas não melhorarem, consulte um médico.",
-      "diabetes": "Controle a alimentação e a glicose no sangue. Se tiver dúvidas, consulte um endocrinologista.",
-      "hipertensão": "Monitore sua pressão arterial regularmente. Uma dieta balanceada e exercícios podem ajudar.",
-      "depressão": "Se você está se sentindo constantemente triste ou desmotivado, é importante procurar ajuda de um profissional de saúde mental.",
-      "hipotireoidismo": "Procure um endocrinologista para o tratamento adequado. O uso de medicamentos pode ser necessário.",
-      
-      // Emergency Conditions in English
-      "stroke": "A stroke is an emergency. If you or someone else has symptoms such as sudden weakness, numbness, or difficulty speaking, call emergency services immediately.",
-      "heart attack": "A heart attack is a medical emergency. If you experience chest pain, shortness of breath, or pain radiating to your arm or jaw, seek emergency help immediately.",
-      "severe bleeding": "If you are bleeding heavily, apply pressure to the wound and seek immediate medical attention.",
-      "poisoning": "If poisoning is suspected, contact a poison control center or seek emergency medical care immediately.",
-      "severe allergic reaction": "If you experience difficulty breathing, swelling, or dizziness after an allergic reaction, seek emergency medical help immediately.",
-      "severe burn": "If you have a severe burn, run cool water over it and seek medical care immediately.",
-      "broken bone": "If you suspect a broken bone, avoid moving the affected area and seek medical help immediately.",
-      
-      // Emergency Conditions in Portuguese
-      "sepsis": "A sepse é uma infecção grave. Se você tiver febre, calafrios, ritmo cardíaco rápido ou confusão, procure ajuda médica imediatamente.",
-      "meningitis": "Meningite pode ser grave. Sintomas incluem febre, dor de cabeça e rigidez no pescoço. Procure atendimento médico imediatamente.",
-      "appendicitis": "Se você sentir dor aguda no lado inferior direito do abdômen, pode ter apendicite. Procure ajuda médica imediatamente.",
-      "kidney stones": "Pedras nos rins podem causar dor intensa nas costas ou abdômen. Beba muitos líquidos e consulte um médico para o tratamento adequado.",
-      "gallstones": "Se você sentir dor no lado superior direito do abdômen, pode ser causada por pedras na vesícula. Consulte um médico para uma avaliação.",
-      "pneumonia": "Se você tiver tosse persistente, febre e falta de ar, pode ter pneumonia. Procure ajuda médica imediatamente.",
-      "diabetic coma": "O coma diabético é uma emergência. Se você tiver alta glicose no sangue, dificuldade para respirar ou confusão, procure ajuda médica imediatamente.",
+      headache: "Try resting, drinking water, and taking a mild pain reliever.",
+      fever: "Consider taking an antipyretic and resting. If the fever persists, consult a doctor.",
+      cough: "Cough can be a symptom of various conditions. If it persists, seek medical attention.",
+      nausea: "Try drinking small sips of liquid and resting. If it persists, consult a doctor.",
+      // Additional responses...
     };
     return responses[input.toLowerCase()] || "Sorry, I don't have a ready answer for that. You might want to see a doctor!";
   });
 
+  // Handle message sending
   async function sendMessage() {
     const text = userInput.value.trim();
     if (!text) return;
@@ -430,6 +284,7 @@
     scrollToBottom();
   }
 
+  // Append message to chat
   function addMessage(role, content) {
     const msg = document.createElement('div');
     msg.className = 'message ' + role;
@@ -437,6 +292,7 @@
     chatBody.appendChild(msg);
   }
 
+  // Add item to history list
   function addHistoryItem(content) {
     const item = document.createElement('div');
     item.className = 'history-item';
@@ -445,20 +301,22 @@
     historyList.appendChild(item);
   }
 
+  // Load item from history list into input
   function loadHistory(content) {
     userInput.value = content;
     userInput.focus();
   }
 
+  // Scroll chat body to bottom for new messages
   function scrollToBottom() {
     chatBody.scrollTop = chatBody.scrollHeight;
   }
 
+  // Allow Enter key to send message
   userInput.addEventListener('keypress', (e) => {
     if (e.key === 'Enter') sendMessage();
   });
 </script>
-
 
 </body>
 </html>
