@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-        <link rel="icon" href="a.jpeg" />
+  <link rel="icon" href="a.jpeg" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Arceus</title>
   <style>
@@ -243,10 +243,9 @@
 
   chatCentral.registrarNode('LocalNode');
   chatCentral.registrarModelo('Medical-Model', 'Medical Assistant', (input) => {
-    // Example response logic for medical input
     const responses = {
-      "headache": "Try resting, drinking water, and taking a mild pain reliever.",
-      "headache": "You can try resting, drinking water, and taking a mild pain reliever.",
+       // Sintomas Comuns em Inglês
+    "headache": "Try resting, drinking water, and taking a mild pain reliever.",
     "fever": "Consider taking an antipyretic and resting. If the fever persists, consult a doctor.",
     "cough": "Cough can be a symptom of various conditions. If it persists, seek medical attention.",
     "nausea": "Try drinking small sips of liquid and resting. If it persists, consult a doctor.",
@@ -264,64 +263,17 @@
     "eye irritation": "If you have itching, redness, or pain in your eyes, avoid rubbing them and consult an ophthalmologist.",
     "allergy": "Avoid the allergen, and if necessary, take an antihistamine. If symptoms persist, consult a doctor.",
     
-    // Additional Common Symptoms and Conditions in English
-    "cold": "A cold usually resolves in a few days. Rest and drink fluids. If symptoms persist, consult a doctor.",
-    "flu": "Flu can be treated with rest and medications to relieve symptoms. If symptoms worsen, consult a doctor.",
-    "asthma": "If you're having trouble breathing, use your inhaler. If symptoms do not improve, consult a doctor.",
-    "arthritis": "If you're experiencing joint pain, anti-inflammatory medications may help. Consult an orthopedist for proper diagnosis.",
-    "heartburn": "Try avoiding spicy and fatty foods. If heartburn continues, consult a gastroenterologist.",
-    "back pain": "Rest, stretching, and pain relief can help with back pain. If it persists, consult a doctor.",
-    "stomach ache": "Try resting and drinking warm fluids. If the pain continues, consult a doctor.",
-    "rash": "If you have a rash, avoid scratching it. If it worsens or does not improve, consult a dermatologist.",
-    "blurry vision": "If you're experiencing blurry vision, rest your eyes. If the problem persists, consult an ophthalmologist.",
-    "ear pain": "Ear pain can be a sign of an infection. If it persists, consult an ENT specialist.",
-    "nosebleed": "Pinch your nose and lean forward slightly. If the bleeding does not stop, seek medical help.",
-    "swollen feet": "Swollen feet can be caused by fluid retention. Try resting with your feet elevated. If it continues, consult a doctor.",
-    
-    // Serious Conditions in English
-    "stroke": "A stroke is an emergency. If you or someone else has symptoms such as sudden weakness, numbness, or difficulty speaking, call emergency services immediately.",
-    "heart attack": "A heart attack is a medical emergency. If you experience chest pain, shortness of breath, or pain radiating to your arm or jaw, seek emergency help immediately.",
-    "severe bleeding": "If you are bleeding heavily, apply pressure to the wound and seek immediate medical attention.",
-    "poisoning": "If poisoning is suspected, contact a poison control center or seek emergency medical care immediately.",
-    "severe allergic reaction": "If you experience difficulty breathing, swelling, or dizziness after an allergic reaction, seek emergency medical help immediately.",
-    "severe burn": "If you have a severe burn, run cool water over it and seek medical care immediately.",
-    "broken bone": "If you suspect a broken bone, avoid moving the affected area and seek medical help immediately."
-};
-const responses = {
-    // Common Symptoms in English
-    "headache": "You can try resting, drinking water, and taking a mild pain reliever.",
-    "fever": "Consider taking an antipyretic and resting. If the fever persists, consult a doctor.",
-    "cough": "Cough can be a symptom of various conditions. If it persists, seek medical attention.",
-    "nausea": "Try drinking small sips of liquid and resting. If it persists, consult a doctor.",
-    "muscle pain": "Light stretching and rest can help alleviate the pain.",
-    "anxiety": "Try deep breathing, meditation, and if necessary, consult a therapist.",
-    "shortness of breath": "If you feel difficulty breathing, seek medical assistance immediately.",
-    "chest pain": "Chest pain can be an emergency sign, consult a doctor immediately.",
-    "dizziness": "Dizziness can have various causes. If it’s severe or persists, consult a doctor.",
-    "fatigue": "Fatigue can be caused by various reasons. Try resting and seek medical advice if it continues.",
-    "insomnia": "Try practicing relaxation techniques before bed. If insomnia persists, consult a doctor.",
-    "trouble swallowing": "This could be a symptom of various conditions, consult a doctor if it continues.",
-    "diarrhea": "Stay hydrated. If it persists for more than two days, consult a doctor.",
-    "constipation": "Try increasing fiber and water intake. If it doesn't improve, consult a doctor.",
-    "vomiting": "Try resting and drinking fluids slowly. If vomiting persists, consult a doctor.",
-    "eye irritation": "If you have itching, redness, or pain in your eyes, avoid rubbing them and consult an ophthalmologist.",
-    "allergy": "Avoid the allergen, and if necessary, take an antihistamine. If symptoms persist, consult a doctor.",
+    // Sintomas Comuns em Português
+    "gripe": "A gripe pode ser tratada com repouso e medicamentos para aliviar os sintomas. Consulte um médico se os sintomas piorarem.",
+    "resfriado": "O resfriado geralmente passa em poucos dias. Descanse e beba líquidos. Se os sintomas persistirem, procure um médico.",
+    "artrite": "Se você tem dor nas articulações, um anti-inflamatório pode ajudar. Consulte um ortopedista para um diagnóstico adequado.",
+    "asma": "Se você tem dificuldade para respirar, use seu inalador. Se os sintomas não melhorarem, consulte um médico.",
+    "diabetes": "Controle a alimentação e a glicose no sangue. Se tiver dúvidas, consulte um endocrinologista.",
+    "hipertensão": "Monitore sua pressão arterial regularmente. Uma dieta balanceada e exercícios podem ajudar.",
+    "depressão": "Se você está se sentindo constantemente triste ou desmotivado, é importante procurar ajuda de um profissional de saúde mental.",
+    "hipotireoidismo": "Procure um endocrinologista para o tratamento adequado. O uso de medicamentos pode ser necessário.",
 
-    // Additional Common Symptoms and Conditions in English
-    "cold": "A cold usually resolves in a few days. Rest and drink fluids. If symptoms persist, consult a doctor.",
-    "flu": "Flu can be treated with rest and medications to relieve symptoms. If symptoms worsen, consult a doctor.",
-    "asthma": "If you're having trouble breathing, use your inhaler. If symptoms do not improve, consult a doctor.",
-    "arthritis": "If you're experiencing joint pain, anti-inflammatory medications may help. Consult an orthopedist for proper diagnosis.",
-    "heartburn": "Try avoiding spicy and fatty foods. If heartburn continues, consult a gastroenterologist.",
-    "back pain": "Rest, stretching, and pain relief can help with back pain. If it persists, consult a doctor.",
-    "stomach ache": "Try resting and drinking warm fluids. If the pain continues, consult a doctor.",
-    "rash": "If you have a rash, avoid scratching it. If it worsens or does not improve, consult a dermatologist.",
-    "blurry vision": "If you're experiencing blurry vision, rest your eyes. If the problem persists, consult an ophthalmologist.",
-    "ear pain": "Ear pain can be a sign of an infection. If it persists, consult an ENT specialist.",
-    "nosebleed": "Pinch your nose and lean forward slightly. If the bleeding does not stop, seek medical help.",
-    "swollen feet": "Swollen feet can be caused by fluid retention. Try resting with your feet elevated. If it continues, consult a doctor.",
-
-    // Serious Conditions in English
+    // Condições Graves em Inglês
     "stroke": "A stroke is an emergency. If you or someone else has symptoms such as sudden weakness, numbness, or difficulty speaking, call emergency services immediately.",
     "heart attack": "A heart attack is a medical emergency. If you experience chest pain, shortness of breath, or pain radiating to your arm or jaw, seek emergency help immediately.",
     "severe bleeding": "If you are bleeding heavily, apply pressure to the wound and seek immediate medical attention.",
@@ -329,128 +281,27 @@ const responses = {
     "severe allergic reaction": "If you experience difficulty breathing, swelling, or dizziness after an allergic reaction, seek emergency medical help immediately.",
     "severe burn": "If you have a severe burn, run cool water over it and seek medical care immediately.",
     "broken bone": "If you suspect a broken bone, avoid moving the affected area and seek medical help immediately.",
-
-    // Additional Serious Conditions
-    "sepsis": "Sepsis is a life-threatening infection. If you experience fever, chills, rapid heart rate, or confusion, seek medical attention immediately.",
-    "meningitis": "Meningitis can be serious. Symptoms include fever, headache, and stiff neck. Seek emergency medical care immediately.",
-    "appendicitis": "If you have sharp pain in the lower right abdomen, you may have appendicitis. Seek medical help immediately.",
-    "kidney stones": "Kidney stones can cause severe pain in the lower back or abdomen. Drink plenty of fluids and consult a doctor for proper treatment.",
-    "gallstones": "If you experience pain in the upper right abdomen, it may be caused by gallstones. Consult a doctor for an evaluation.",
-    "pneumonia": "If you experience persistent cough, fever, and shortness of breath, you may have pneumonia. Seek medical help immediately.",
-    "diabetic coma": "A diabetic coma is an emergency. If you have high blood sugar, difficulty breathing, or confusion, seek immediate medical help."
-};
-const responses = {
-    // Common Symptoms in English
-    "headache": "You can try resting, drinking water, and taking a mild pain reliever.",
-    "fever": "Consider taking an antipyretic and resting. If the fever persists, consult a doctor.",
-    "cough": "Cough can be a symptom of various conditions. If it persists, seek medical attention.",
-    "nausea": "Try drinking small sips of liquid and resting. If it persists, consult a doctor.",
-    "muscle pain": "Light stretching and rest can help alleviate the pain.",
-    "anxiety": "Try deep breathing, meditation, and if necessary, consult a therapist.",
-    "shortness of breath": "If you feel difficulty breathing, seek medical assistance immediately.",
-    "chest pain": "Chest pain can be an emergency sign, consult a doctor immediately.",
-    "dizziness": "Dizziness can have various causes. If it’s severe or persists, consult a doctor.",
-    "fatigue": "Fatigue can be caused by various reasons. Try resting and seek medical advice if it continues.",
-    "insomnia": "Try practicing relaxation techniques before bed. If insomnia persists, consult a doctor.",
-    "trouble swallowing": "This could be a symptom of various conditions, consult a doctor if it continues.",
-    "diarrhea": "Stay hydrated. If it persists for more than two days, consult a doctor.",
-    "constipation": "Try increasing fiber and water intake. If it doesn't improve, consult a doctor.",
-    "vomiting": "Try resting and drinking fluids slowly. If vomiting persists, consult a doctor.",
-    "eye irritation": "If you have itching, redness, or pain in your eyes, avoid rubbing them and consult an ophthalmologist.",
-    "allergy": "Avoid the allergen, and if necessary, take an antihistamine. If symptoms persist, consult a doctor.",
-
-    // Additional Common Symptoms and Conditions in English
-    "cold": "A cold usually resolves in a few days. Rest and drink fluids. If symptoms persist, consult a doctor.",
-    "flu": "Flu can be treated with rest and medications to relieve symptoms. If symptoms worsen, consult a doctor.",
-    "asthma": "If you're having trouble breathing, use your inhaler. If symptoms do not improve, consult a doctor.",
-    "arthritis": "If you're experiencing joint pain, anti-inflammatory medications may help. Consult an orthopedist for proper diagnosis.",
-    "heartburn": "Try avoiding spicy and fatty foods. If heartburn continues, consult a gastroenterologist.",
-    "back pain": "Rest, stretching, and pain relief can help with back pain. If it persists, consult a doctor.",
-    "stomach ache": "Try resting and drinking warm fluids. If the pain continues, consult a doctor.",
-    "rash": "If you have a rash, avoid scratching it. If it worsens or does not improve, consult a dermatologist.",
-    "blurry vision": "If you're experiencing blurry vision, rest your eyes. If the problem persists, consult an ophthalmologist.",
-    "ear pain": "Ear pain can be a sign of an infection. If it persists, consult an ENT specialist.",
-    "nosebleed": "Pinch your nose and lean forward slightly. If the bleeding does not stop, seek medical help.",
-    "swollen feet": "Swollen feet can be caused by fluid retention. Try resting with your feet elevated. If it continues, consult a doctor.",
-
-    // Serious Conditions in English
-    "stroke": "A stroke is an emergency. If you or someone else has symptoms such as sudden weakness, numbness, or difficulty speaking, call emergency services immediately.",
-    "heart attack": "A heart attack is a medical emergency. If you experience chest pain, shortness of breath, or pain radiating to your arm or jaw, seek emergency help immediately.",
-    "severe bleeding": "If you are bleeding heavily, apply pressure to the wound and seek immediate medical attention.",
-    "poisoning": "If poisoning is suspected, contact a poison control center or seek emergency medical care immediately.",
-    "severe allergic reaction": "If you experience difficulty breathing, swelling, or dizziness after an allergic reaction, seek emergency medical help immediately.",
-    "severe burn": "If you have a severe burn, run cool water over it and seek medical care immediately.",
-    "broken bone": "If you suspect a broken bone, avoid moving the affected area and seek medical help immediately.",
-
-    // Additional Serious Conditions
-    "sepsis": "Sepsis is a life-threatening infection. If you experience fever, chills, rapid heart rate, or confusion, seek medical attention immediately.",
-    "meningitis": "Meningitis can be serious. Symptoms include fever, headache, and stiff neck. Seek emergency medical care immediately.",
-    "appendicitis": "If you have sharp pain in the lower right abdomen, you may have appendicitis. Seek medical help immediately.",
-    "kidney stones": "Kidney stones can cause severe pain in the lower back or abdomen. Drink plenty of fluids and consult a doctor for proper treatment.",
-    "gallstones": "If you experience pain in the upper right abdomen, it may be caused by gallstones. Consult a doctor for an evaluation.",
-    "pneumonia": "If you experience persistent cough, fever, and shortness of breath, you may have pneumonia. Seek medical help immediately.",
-    "diabetic coma": "A diabetic coma is an emergency. If you have high blood sugar, difficulty breathing, or confusion, seek immediate medical help.",
     
-    // Additional Conditions in English
-    "high blood pressure": "High blood pressure can be managed with lifestyle changes, medication, and regular monitoring. Consult a doctor for guidance.",
-    "depression": "If you feel sad, hopeless, or lack interest in activities, it's important to seek help from a mental health professional.",
-    "anemia": "Anemia can cause fatigue and weakness. Iron-rich foods or supplements may help, but it's important to consult a doctor for treatment.",
-    "gastroenteritis": "Gastroenteritis causes vomiting and diarrhea. Stay hydrated and rest. If symptoms last longer than two days, consult a doctor.",
-    "UTI": "Urinary tract infections (UTIs) can cause pain or burning during urination. Drink plenty of fluids and consult a doctor for antibiotics.",
-    "pregnancy symptoms": "If you're pregnant and experiencing symptoms like nausea, fatigue, or missed periods, take a test and consult a doctor for care.",
-    "eczema": "Eczema can cause itchy, inflamed skin. Moisturize regularly and consult a dermatologist for appropriate treatment.",
-    "hemorrhoids": "Hemorrhoids can be treated with over-the-counter creams and a high-fiber diet. If the pain persists, consult a doctor.",
-    "hormonal imbalance": "Hormonal imbalances can cause irregular periods, weight changes, and mood swings. Consult an endocrinologist for proper treatment.",
-    "migraine": "Migraines can be treated with pain relievers and avoiding triggers. If migraines are frequent, consult a doctor for a treatment plan.",
-    "chronic pain": "Chronic pain can be managed with physical therapy, medications, and lifestyle changes. Consult a pain specialist for more options."
-};
+    // Condições Graves em Português
+    "sepsis": "A sepse é uma infecção grave. Se você tiver febre, calafrios, ritmo cardíaco rápido ou confusão, procure ajuda médica imediatamente.",
+    "meningitis": "Meningite pode ser grave. Sintomas incluem febre, dor de cabeça e rigidez no pescoço. Procure atendimento médico imediatamente.",
+    "appendicitis": "Se você sentir dor aguda no lado inferior direito do abdômen, pode ter apendicite. Procure ajuda médica imediatamente.",
+    "kidney stones": "Pedras nos rins podem causar dor intensa nas costas ou abdômen. Beba muitos líquidos e consulte um médico para o tratamento adequado.",
+    "gallstones": "Se você sentir dor no lado superior direito do abdômen, pode ser causada por pedras na vesícula. Consulte um médico para uma avaliação.",
+    "pneumonia": "Se você tiver tosse persistente, febre e falta de ar, pode ter pneumonia. Procure ajuda médica imediatamente.",
+    "diabetic coma": "O coma diabético é uma emergência. Se você tiver alta glicose no sangue, dificuldade para respirar ou confusão, procure ajuda médica imediatamente.",
 
-        
-        // Sintomas em Inglês
-        "headache": "Try resting, drinking water, and taking a mild pain reliever.",
-        "fever": "Consider taking an antipyretic and resting. If the fever persists, consult a doctor.",
-        "cough": "Cough can be a symptom of various conditions. If it persists, seek medical attention.",
-        "nausea": "Try drinking small sips of liquid and resting. If it persists, consult a doctor.",
-        "muscle pain": "Light stretching and rest can help alleviate the pain.",
-        "anxiety": "Try deep breathing, meditation, and if necessary, consult a therapist.",
-        "shortness of breath": "If you have trouble breathing, seek immediate medical assistance.",
-        "chest pain": "Chest pain could be an emergency. Consult a doctor immediately.",
-        "dizziness": "Dizziness can be caused by many factors. If it’s severe or persists, consult a doctor.",
-        "fatigue": "Fatigue can be caused by several reasons. Try resting, and if it continues, consult a doctor.",
-        "insomnia": "Try practicing relaxation techniques before bed. If insomnia persists, consult a doctor.",
-        "trouble swallowing": "This could be a symptom of various conditions. If it persists, consult a doctor.",
-        "diarrhea": "Stay hydrated. If it persists for more than two days, seek medical attention.",
-        "constipation": "Try increasing fiber and water intake. If it doesn’t improve, consult a doctor.",
-        "vomiting": "Try resting and drinking fluids slowly. If vomiting persists, consult a doctor.",
-        "eye irritation": "If you have itching, redness, or pain in the eyes, avoid rubbing them and consult an ophthalmologist.",
-        "allergy": "Avoid the allergen, and if necessary, take an antihistamine. If symptoms persist, consult a doctor.",
-        
-        // Outras condições em Português
-        "gripe": "A gripe pode ser tratada com repouso e medicamentos para aliviar os sintomas. Consulte um médico se os sintomas piorarem.",
-        "resfriado": "O resfriado geralmente passa em poucos dias. Descanse e beba líquidos. Se os sintomas persistirem, procure um médico.",
-        "artrite": "Se você tem dor nas articulações, um anti-inflamatório pode ajudar. Consulte um ortopedista para um diagnóstico adequado.",
-        "asma": "Se você tem dificuldade para respirar, use seu inalador. Se os sintomas não melhorarem, consulte um médico.",
-        "diabetes": "Controle a alimentação e a glicose no sangue. Se tiver dúvidas, consulte um endocrinologista.",
-        "hipertensão": "Monitore sua pressão arterial regularmente. Uma dieta balanceada e exercícios podem ajudar.",
-        "depressão": "Se você está se sentindo constantemente triste ou desmotivado, é importante procurar ajuda de um profissional de saúde mental.",
-        "hipotireoidismo": "Procure um endocrinologista para o tratamento adequado. O uso de medicamentos pode ser necessário.",
-        
-        // Outras condições em Inglês
-        "flu": "Flu can be treated with rest and medications to alleviate symptoms. If symptoms worsen, consult a doctor.",
-        "cold": "A cold usually passes within a few days. Rest and drink plenty of fluids. If symptoms persist, consult a doctor.",
-        "arthritis": "If you have joint pain, an anti-inflammatory may help. Consult an orthopedist for a proper diagnosis.",
-        "asthma": "If you have trouble breathing, use your inhaler. If symptoms don’t improve, consult a doctor.",
-        "diabetes": "Control your diet and blood sugar levels. If you have questions, consult an endocrinologist.",
-        "hypertension": "Regularly monitor your blood pressure. A balanced diet and exercise may help.",
-        "depression": "If you feel consistently sad or unmotivated, it’s important to seek help from a mental health professional.",
-        "hypothyroidism": "Consult an endocrinologist for appropriate treatment. Medication may be necessary.",
-    };
-      "fever": "Consider taking an antipyretic and resting. If the fever persists, consult a doctor.",
-      "cough": "Cough can be a symptom of various conditions. If it persists, seek medical attention.",
-      // Add more conditions here...
-    };
-    const response = responses[input.toLowerCase()];
-    return response || "Sorry, I don't have a ready answer for that. You might want to see a doctor!";
+    // Outras Condições em Português
+    "gripe": "A gripe pode ser tratada com repouso e medicamentos para aliviar os sintomas. Consulte um médico se os sintomas piorarem.",
+    "resfriado": "O resfriado geralmente passa em poucos dias. Descanse e beba líquidos. Se os sintomas persistirem, procure um médico.",
+    "artrite": "Se você tem dor nas articulações, um anti-inflamatório pode ajudar. Consulte um ortopedista para um diagnóstico adequado.",
+    "asma": "Se você tem dificuldade para respirar, use seu inalador. Se os sintomas não melhorarem, consulte um médico.",
+    "diabetes": "Controle a alimentação e a glicose no sangue. Se tiver dúvidas, consulte um endocrinologista.",
+    "hipertensão": "Monitore sua pressão arterial regularmente. Uma dieta balanceada e exercícios podem ajudar.",
+    "depressão": "Se você está se sentindo constantemente triste ou desmotivado, é importante procurar ajuda de um profissional de saúde mental.",
+    "hipotireoidismo": "Procure um endocrinologista para o tratamento adequado. O uso de medicamentos pode ser necessário.",
+};
+    return responses[input.toLowerCase()] || "Sorry, I don't have a ready answer for that. You might want to see a doctor!";
   });
 
   async function sendMessage() {
