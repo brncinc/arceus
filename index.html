@@ -295,7 +295,7 @@ chatCentral.registerNode('LocalNode');
 
 chatCentral.registerModel('Medical-Model', 'Medical Assistant', (input) => {
   const responses = {
-    // Common Symptoms - English
+// Common Symptoms - English
     headache: "Try resting, drinking water, and taking a mild pain reliever.",
     fever: "Consider taking an antipyretic and resting. If the fever persists, consult a doctor.",
     cough: "Cough can be a symptom of various conditions. If it persists, seek medical attention.",
@@ -583,7 +583,6 @@ chatCentral.registerModel('Medical-Model', 'Medical Assistant', (input) => {
     ataqueCardiaco: "Um ataque cardíaco é uma emergência. Se você sentir dor no peito, falta de ar ou dor irradiando para o braço ou mandíbula, procure ajuda imediatamente.",
     insuficienciaRenal: "Se você tiver dificuldade para urinar ou dor nas costas, pode ter insuficiência renal. Procure um nefrologista imediatamente."
   };
-
   return responses[input.toLowerCase()] || "Sorry, I don't have a ready answer for that. Consider consulting a doctor!";
 });
 
@@ -640,6 +639,7 @@ userInput.addEventListener('keypress', (e) => {
   if (e.key === 'Enter') sendMessage();
 });
 </script>
+
 
 </body>
 </html>
