@@ -20,11 +20,7 @@
     overflow: hidden;
   }
 
-  .main-container {
-    flex: 1;
-    display: flex;
-    overflow: hidden;
-  }
+  .main-container { flex: 1; display: flex; overflow: hidden; }
 
   /* Sidebar */
   .sidebar {
@@ -38,13 +34,7 @@
     overflow-y: auto;
     transition: all 0.3s ease;
   }
-
-  .sidebar h2 {
-    font-size: 1.2rem;
-    margin-bottom: 10px;
-    color: #00bcd4;
-  }
-
+  .sidebar h2 { font-size: 1.2rem; margin-bottom: 10px; color: #00bcd4; }
   .history-item {
     padding: 8px 12px;
     background-color: #2c3e50;
@@ -56,10 +46,7 @@
     overflow: hidden;
     text-overflow: ellipsis;
   }
-
-  .history-item:hover {
-    background-color: #34495e;
-  }
+  .history-item:hover { background-color: #34495e; }
 
   /* Chat Container */
   .chat-container {
@@ -70,7 +57,6 @@
     border-left: 1px solid #333;
     position: relative;
   }
-
   .chat-header {
     background-color: #002f6c;
     color: #fff;
@@ -79,7 +65,6 @@
     font-weight: bold;
     font-size: 1.2rem;
   }
-
   .chat-body {
     flex: 1;
     padding: 20px;
@@ -90,7 +75,6 @@
     scroll-behavior: smooth;
     padding-bottom: 50px;
   }
-
   .message {
     padding: 12px 20px;
     border-radius: 20px;
@@ -101,7 +85,6 @@
     transition: all 0.2s;
     margin-bottom: 10px;
   }
-
   .message.user {
     background-color: #00796b;
     color: #fff;
@@ -109,7 +92,6 @@
     border-bottom-right-radius: 5px;
     border-bottom-left-radius: 20px;
   }
-
   .message.bot {
     background-color: #1a73e8;
     color: #fff;
@@ -127,7 +109,6 @@
     padding: 10px;
     border-top: 1px solid #333;
   }
-
   .chat-input input {
     flex: 1;
     padding: 12px 15px;
@@ -138,11 +119,7 @@
     color: #fff;
     border-radius: 20px;
   }
-
-  .chat-input input:focus {
-    background-color: #2c3e50;
-  }
-
+  .chat-input input:focus { background-color: #2c3e50; }
   .chat-input button {
     padding: 12px 20px;
     background-color: #00bcd4;
@@ -154,10 +131,7 @@
     margin-left: 10px;
     transition: background-color 0.2s;
   }
-
-  .chat-input button:hover {
-    background-color: #008c9e;
-  }
+  .chat-input button:hover { background-color: #008c9e; }
 
   footer {
     background-color: #002f6c;
@@ -167,45 +141,21 @@
     font-weight: bold;
   }
 
-  /* ===== Responsividade ===== */
   @media (max-width: 768px) {
-    .sidebar {
-      position: absolute;
-      left: -220px; /* escondida por padrão */
-      top: 0;
-      height: 100%;
-      z-index: 1000;
-    }
-
-    .sidebar.show {
-      left: 0; /* visível quando a classe show for adicionada */
-    }
-
-    .main-container {
-      flex-direction: column;
-    }
-
-    .chat-container {
-      border-left: none;
-    }
+    .sidebar { position: absolute; left: -220px; top: 0; height: 100%; z-index: 1000; }
+    .sidebar.show { left: 0; }
+    .main-container { flex-direction: column; }
+    .chat-container { border-left: none; }
   }
-
   @media (min-width: 769px) {
-    .sidebar {
-      width: 60px; /* colapsada por padrão */
-    }
-    .sidebar:hover {
-      width: 220px; /* expandida ao hover */
-    }
+    .sidebar { width: 60px; }
+    .sidebar:hover { width: 220px; }
   }
 </style>
-
-
 </head>
 <body>
 <div class="main-container">
   <div class="sidebar">
-    
     <div id="historyList"></div>
   </div>
 
@@ -222,18 +172,16 @@
 </div>
 
 <footer>BRNC GRUP AI ®</footer>
+
 <script>
-// Elementos
 const chatBody = document.getElementById('chatBody');
 const userInput = document.getElementById('userInput');
 const historyList = document.getElementById('historyList');
 
-// Histórico do chat
 let chatHistory = [
   { role: 'bot', content: "Hello! I am Arceus AI, how can I assist you today?" }
 ];
 
-// Funções auxiliares
 function addMessage(role, content) {
   const msg = document.createElement('div');
   msg.className = 'message ' + role;
@@ -258,7 +206,6 @@ function scrollToBottom() {
   chatBody.scrollTop = chatBody.scrollHeight;
 }
 
-// Classe central do chat
 class ChatCentral {
   constructor() {
     this.chatHistory = chatHistory;
@@ -275,15 +222,14 @@ class ChatCentral {
       .toString(16);
   }
 
-  async pushBlock(payload, source = "SYSTEM", target = "KERNEL") {
+  async pushBlock(payload, source="SYSTEM", target="KERNEL") {
     const previousHash = this.blockchainQueue.length
-      ? this.blockchainQueue[this.blockchainQueue.length - 1].hash
+      ? this.blockchainQueue[this.blockchainQueue.length-1].hash
       : "0".repeat(64);
     const timestamp = Date.now();
     const blockId = this.totalBlocks + 1;
     const blockContent = `${JSON.stringify(payload)}-${source}-${target}-${previousHash}-${timestamp}`;
     const blockHash = this.hash(blockContent);
-
     const block = { blockId, payload, source, target, previousHash, timestamp, hash: blockHash };
     this.blockchainQueue.push(block);
     this.auditLog.push(`BLOCK#${blockId}: ${source} -> ${target} | Data: ${JSON.stringify(payload)}`);
@@ -316,308 +262,202 @@ class ChatCentral {
   }
 }
 
-// Inicialização do chat
 const chatCentral = new ChatCentral();
 chatCentral.registerNode('LocalNode');
 
-// Respostas de saúde
+// Unified Health Responses (English & Portuguese examples)
 const healthResponses = {
-  // English
-     headache: "Try resting, drinking water, and taking a mild pain reliever.",
-    fever: "Consider taking an antipyretic and resting. If the fever persists, consult a doctor.",
-    cough: "Cough can be a symptom of various conditions. If it persists, seek medical attention.",
-    nausea: "Try drinking small sips of liquid and resting. If it persists, consult a doctor.",
-    musclePain: "Light stretching and rest can help alleviate the pain.",
-    anxiety: "Try deep breathing, meditation, and if necessary, consult a therapist.",
-    shortnessOfBreath: "If you feel difficulty breathing, seek medical assistance immediately.",
-    chestPain: "Chest pain can be an emergency sign, consult a doctor immediately.",
-    dizziness: "Dizziness can have various causes. If it’s severe or persists, consult a doctor.",
-    fatigue: "Fatigue can be caused by various reasons. Try resting and seek medical advice if it continues.",
-    insomnia: "Try practicing relaxation techniques before bed. If insomnia persists, consult a doctor.",
-    troubleSwallowing: "This could be a symptom of various conditions, consult a doctor if it continues.",
-    diarrhea: "Stay hydrated. If it persists for more than two days, consult a doctor.",
-    constipation: "Try increasing fiber and water intake. If it doesn't improve, consult a doctor.",
-    vomiting: "Try resting and drinking fluids slowly. If vomiting persists, consult a doctor.",
-    eyeIrritation: "If you have itching, redness, or pain in your eyes, avoid rubbing them and consult an ophthalmologist.",
-    allergy: "Avoid the allergen, and if necessary, take an antihistamine. If symptoms persist, consult a doctor.",
-    soreThroat: "A sore throat can be caused by viral or bacterial infections. Drink warm liquids and consult a doctor if symptoms worsen.",
-    runnyNose: "A runny nose is often caused by a cold or allergies. Stay hydrated and consider using saline nasal spray.",
-    backPain: "For back pain, try gentle stretches and apply heat or ice. If the pain persists, consult a doctor.",
-    earPain: "Ear pain can be caused by infection or pressure changes. If it persists, consult an ENT specialist.",
-    bloating: "Bloating may be due to diet, constipation, or other digestive issues. Drink plenty of water and consider avoiding gassy foods.",
 
-    // Emergency Conditions - English
-    stroke: "A stroke is an emergency. If you or someone else has symptoms such as sudden weakness, numbness, or difficulty speaking, call emergency services immediately.",
-    heartAttack: "A heart attack is a medical emergency. If you experience chest pain, shortness of breath, or pain radiating to your arm or jaw, seek emergency help immediately.",
-    severeBleeding: "If you are bleeding heavily, apply pressure to the wound and seek immediate medical attention.",
-    poisoning: "If poisoning is suspected, contact a poison control center or seek emergency medical care immediately.",
-    severeAllergicReaction: "If you experience difficulty breathing, swelling, or dizziness after an allergic reaction, seek emergency medical help immediately.",
-    severeBurn: "If you have a severe burn, run cool water over it and seek medical care immediately.",
-    brokenBone: "If you suspect a broken bone, avoid moving the affected area and seek medical help immediately.",
-    const healthResponses = {
-  // Common Symptoms
-  headache: "Try resting, drinking water, and taking a mild pain reliever.",
-  fever: "Consider taking an antipyretic and resting. If the fever persists, consult a doctor.",
-  cough: "Cough can be a symptom of various conditions. If it persists, seek medical attention.",
-  nausea: "Try drinking small sips of liquid and resting. If it persists, consult a doctor.",
-  musclePain: "Light stretching and rest can help alleviate the pain.",
-  fatigue: "Fatigue can be caused by various reasons. Try resting and seek medical advice if it continues.",
-  insomnia: "Try practicing relaxation techniques before bed. If insomnia persists, consult a doctor.",
-  troubleSwallowing: "This could be a symptom of various conditions, consult a doctor if it continues.",
-  diarrhea: "Stay hydrated. If it persists for more than two days, consult a doctor.",
-  constipation: "Try increasing fiber and water intake. If it doesn't improve, consult a doctor.",
-  vomiting: "Try resting and drinking fluids slowly. If vomiting persists, consult a doctor.",
-  bloating: "Bloating may be due to diet, constipation, or other digestive issues. Drink plenty of water and consider avoiding gassy foods.",
-  soreThroat: "A sore throat can be caused by viral or bacterial infections. Drink warm liquids and consult a doctor if symptoms worsen.",
-  runnyNose: "A runny nose is often caused by a cold or allergies. Stay hydrated and consider using saline nasal spray.",
-  eyeIrritation: "If you have itching, redness, or pain in your eyes, avoid rubbing them and consult an ophthalmologist.",
-  allergy: "Avoid the allergen, and if necessary, take an antihistamine. If symptoms persist, consult a doctor.",
-  backPain: "For back pain, try gentle stretches and apply heat or ice. If the pain persists, consult a doctor.",
-  earPain: "Ear pain can be caused by infection or pressure changes. If it persists, consult an ENT specialist.",
+       const responses = {
 
-  // Emergency Conditions
-  stroke: "A stroke is an emergency. If you or someone else has symptoms such as sudden weakness, numbness, or difficulty speaking, call emergency services immediately.",
-  heartAttack: "A heart attack is a medical emergency. If you experience chest pain, shortness of breath, or pain radiating to your arm or jaw, seek emergency help immediately.",
-  severeBleeding: "If you are bleeding heavily, apply pressure to the wound and seek immediate medical attention.",
-  poisoning: "If poisoning is suspected, contact a poison control center or seek emergency medical care immediately.",
-  severeAllergicReaction: "If you experience difficulty breathing, swelling, or dizziness after an allergic reaction, seek emergency medical help immediately.",
-  severeBurn: "If you have a severe burn, run cool water over it and seek medical care immediately.",
-  brokenBone: "If you suspect a broken bone, avoid moving the affected area and seek medical help immediately.",
+    "headache": "You can try resting, drinking water, and taking a mild pain reliever.",
+    "fever": "Consider taking an antipyretic and resting. If the fever persists, consult a doctor.",
+    "cough": "Cough can be a symptom of various conditions. If it persists, seek medical attention.",
+    "nausea": "Try drinking small sips of liquid and resting. If it persists, consult a doctor.",
+    "muscle pain": "Light stretching and rest can help alleviate the pain.",
+    "anxiety": "Try deep breathing, meditation, and if necessary, consult a therapist.",
+    "shortness of breath": "If you feel difficulty breathing, seek medical assistance immediately.",
+    "chest pain": "Chest pain can be an emergency sign, consult a doctor immediately.",
+    "dizziness": "Dizziness can have various causes. If it’s severe or persists, consult a doctor.",
+    "fatigue": "Fatigue can be caused by various reasons. Try resting and seek medical advice if it continues.",
+    "insomnia": "Try practicing relaxation techniques before bed. If insomnia persists, consult a doctor.",
+    "trouble swallowing": "This could be a symptom of various conditions, consult a doctor if it continues.",
+    "diarrhea": "Stay hydrated. If it persists for more than two days, consult a doctor.",
+    "constipation": "Try increasing fiber and water intake. If it doesn't improve, consult a doctor.",
+    "vomiting": "Try resting and drinking fluids slowly. If vomiting persists, consult a doctor.",
+    "eye irritation": "If you have itching, redness, or pain in your eyes, avoid rubbing them and consult an ophthalmologist.",
+    "allergy": "Avoid the allergen, and if necessary, take an antihistamine. If symptoms persist, consult a doctor.",
 
-  // Additional 100 alternative questions/responses
-  headacheThrobbing: "Rest, apply a cold or warm compress, and take a mild pain reliever if needed.",
-  headacheMigraine: "Try lying down in a dark room, hydration, and consult a doctor if migraines are frequent.",
-  feverLow: "Monitor temperature, rest, and stay hydrated. Use an antipyretic if necessary.",
-  feverHigh: "Seek medical attention if fever exceeds 39°C or persists.",
-  coughDry: "Drink warm fluids and consider a honey-based remedy. Seek medical advice if persistent.",
-  coughWet: "Stay hydrated and consult a doctor if mucus is discolored or accompanied by fever.",
-  nauseaMorning: "Eat small meals and avoid strong smells. Consult a doctor if persistent.",
-  nauseaFoodRelated: "Avoid the triggering food and stay hydrated. Consult a doctor if symptoms repeat.",
-  musclePainLocalized: "Gentle stretching, rest, and over-the-counter analgesics may help.",
-  musclePainSevere: "Seek medical advice if pain is severe or limiting mobility.",
-  anxietyMild: "Practice breathing exercises and meditation.",
-  anxietySevere: "Seek therapy or counseling if anxiety interferes with daily life.",
-  depressionMild: "Maintain routine, exercise, and social interaction. Seek counseling if needed.",
-  depressionSevere: "Contact a mental health professional immediately.",
-  stressHeadache: "Take breaks, hydrate, and practice relaxation techniques.",
-  insomniaOccasional: "Avoid caffeine before bed and practice relaxation techniques.",
-  insomniaChronic: "Consult a doctor or sleep specialist if insomnia persists.",
-  shortnessOfBreathExertion: "Rest and avoid overexertion. Seek medical advice if persistent.",
-  shortnessOfBreathAtRest: "Seek emergency care immediately.",
-  wheezing: "Use prescribed inhalers if available and consult a doctor.",
-  snoring: "Maintain healthy sleep posture and avoid alcohol before bed.",
-  nasalCongestion: "Use saline spray and stay hydrated.",
-  diarrheaAcute: "Drink fluids, consider electrolyte solutions, and rest.",
-  diarrheaChronic: "Consult a doctor if diarrhea lasts more than 3 days or is severe.",
-  constipationMild: "Increase fiber, water intake, and mild physical activity.",
-  constipationSevere: "Seek medical advice if it persists or is accompanied by pain.",
-  vomitingPersistent: "Seek medical attention if vomiting does not stop.",
-  bloatingFoodRelated: "Avoid trigger foods and eat slowly.",
-  bloatingSevere: "Consult a doctor if bloating is sudden or accompanied by pain.",
-  soreThroatViral: "Rest, drink warm fluids, and monitor symptoms.",
-  soreThroatBacterial: "Consult a doctor; antibiotics may be required.",
-  runnyNoseCold: "Rest, stay hydrated, and use saline spray.",
-  runnyNoseAllergy: "Avoid allergens and consider antihistamines.",
-  eyeRedness: "Avoid rubbing eyes and consult an ophthalmologist if persistent.",
-  eyePain: "Seek medical attention if eye pain is severe or vision is affected.",
-  earInfection: "Consult an ENT if pain or discharge persists.",
-  earPressure: "Try yawning or chewing gum; consult a doctor if severe.",
-  backPainAcute: "Gentle stretching and ice or heat application may help.",
-  backPainChronic: "Consult a doctor or physiotherapist for ongoing pain.",
-  chestTightness: "Seek medical evaluation, especially if accompanied by shortness of breath.",
-  palpitations: "Monitor heart rate and consult a doctor if persistent or severe.",
-  dizzinessLight: "Sit or lie down, hydrate, and rest.",
-  dizzinessSevere: "Seek medical attention immediately if sudden or accompanied by other symptoms.",
-  fainting: "Lie down immediately and seek medical help if repeated.",
-  fatigueMild: "Rest and maintain hydration.",
-  fatigueSevere: "Consult a doctor to rule out underlying conditions.",
-  jointPain: "Apply ice or heat, rest, and consider mild analgesics.",
-  swellingLegs: "Elevate legs and seek medical advice if persistent or painful.",
-  rashMild: "Avoid irritants and monitor the rash.",
-  rashSevere: "Seek medical attention if rash spreads or is painful.",
-  blister: "Keep area clean and avoid popping; consult a doctor if infected.",
-  itching: "Avoid scratching and use soothing creams; consult a doctor if persistent.",
-  bruisingEasy: "Monitor and consult a doctor if bruising occurs frequently.",
-  bleedingGums: "Maintain oral hygiene and consult a dentist if persistent.",
-  noseBleed: "Apply pressure and lean forward; seek medical help if severe.",
-  dehydrationMild: "Drink water and electrolyte solutions.",
-  dehydrationSevere: "Seek medical attention immediately.",
-  feverChills: "Rest, stay hydrated, and monitor symptoms.",
-  nightSweats: "Consult a doctor if persistent or severe.",
-  weightLossUnexplained: "Consult a doctor to identify underlying causes.",
-  weightGainUnexplained: "Monitor diet and seek medical advice if persistent.",
-  appetiteLoss: "Maintain hydration and small frequent meals; consult a doctor if prolonged.",
-  appetiteIncrease: "Monitor diet and lifestyle; consult a doctor if sudden.",
-  hairLoss: "Consult a dermatologist for evaluation.",
-  nailChanges: "Seek medical advice if changes are sudden or severe.",
-  mouthUlcer: "Maintain oral hygiene and use soothing rinses; consult a doctor if persistent.",
-  badBreath: "Maintain oral hygiene; consult a dentist if persistent.",
-  hoarseness: "Rest voice; seek medical help if lasting more than two weeks.",
-  coughBlood: "Seek immediate medical attention.",
-  vomitingBlood: "Seek emergency care immediately.",
-  abdominalPainMild: "Rest, hydrate, and monitor symptoms.",
-  abdominalPainSevere: "Seek immediate medical evaluation.",
-  bloatingChronic: "Consult a doctor for digestive evaluation.",
-  gasExcess: "Avoid gassy foods and eat slowly.",
-  indigestion: "Eat smaller meals and avoid trigger foods.",
-  heartburn: "Avoid spicy/fatty foods and elevate head while sleeping.",
-  acidReflux: "Consult a doctor if persistent or severe.",
-  nauseaPregnancy: "Eat small frequent meals and stay hydrated.",
-  fatiguePregnancy: "Rest and maintain nutrition; consult a doctor if severe.",
-  swellingPregnancy: "Elevate legs and consult a doctor if sudden or severe.",
-  moodSwings: "Rest, manage stress, and seek counseling if severe.",
-  anxietyPregnancy: "Practice relaxation techniques and consult a therapist if needed.",
-  postpartumDepression: "Seek medical support immediately.",
-  feverChild: "Monitor temperature and consult a pediatrician if persistent or high.",
-  coughChild: "Hydrate, rest, and consult a doctor if persistent.",
-  rashChild: "Monitor and consult a pediatrician if spreading or severe.",
-  vomitingChild: "Ensure hydration; seek medical advice if persistent.",
-  diarrheaChild: "Maintain fluids; consult a doctor if lasts more than 24-48h."const additionalHealthResponses = {
-  jointSwelling: "Apply ice, rest the joint, and consult a doctor if persistent.",
-  jointStiffness: "Gentle movement and stretching may help; seek medical advice if chronic.",
-  bruisingFrequent: "Monitor and consult a doctor to rule out clotting disorders.",
-  noseCongestion: "Use saline spray and stay hydrated.",
-  sinusPain: "Apply warm compresses and consult a doctor if persistent.",
-  sinusPressure: "Stay hydrated, rest, and consider decongestants under medical advice.",
-  headacheCluster: "Seek medical advice if headaches are severe or recurring in clusters.",
-  migraineAura: "Track triggers and consult a neurologist if frequent.",
-  vertigo: "Sit or lie down immediately; consult a doctor if persistent.",
-  balanceProblems: "Avoid hazards and consult a doctor if ongoing.",
-  tinglingHands: "Check posture, rest, and consult a doctor if persistent.",
-  tinglingFeet: "Monitor and seek medical advice if frequent or worsening.",
-  numbness: "Seek medical evaluation if sudden or severe.",
-  coldHandsFeet: "Keep warm; consult a doctor if persistent or painful.",
-  paleness: "Monitor and consult a doctor if accompanied by fatigue or dizziness.",
-  sweatingExcessive: "Stay hydrated and consult a doctor if persistent.",
-  sweatingReduced: "Seek medical evaluation if you cannot sweat normally.",
-  rapidHeartbeat: "Monitor symptoms; seek medical advice if persistent.",
-  slowHeartbeat: "Consult a doctor if accompanied by dizziness or fainting.",
-  irregularHeartbeat: "Seek medical evaluation promptly.",
-  chestTightnessMild: "Rest and monitor symptoms; consult a doctor if worsening.",
-  chestPainSharp: "Seek medical attention immediately.",
-  chestPainPressure: "Could be cardiac-related; seek emergency care immediately.",
-  faintingSpells: "Lie down immediately and consult a doctor.",
-  lightheadedness: "Sit or lie down; stay hydrated.",
-  blurredVision: "Consult an ophthalmologist if persistent.",
-  doubleVision: "Seek immediate medical evaluation.",
-  eyePainSevere: "Seek medical attention immediately.",
-  eyeDischarge: "Consult an ophthalmologist if persistent.",
-  hearingLoss: "Consult an ENT specialist.",
-  ringingEars: "Monitor and consult a doctor if persistent or severe.",
-  vertigoSevere: "Seek immediate medical attention.",
-  difficultyWalking: "Seek medical evaluation urgently.",
-  muscleWeakness: "Consult a doctor if sudden or persistent.",
-  crampsMuscle: "Stretch, hydrate, and rest the muscle.",
-  legPain: "Rest and apply ice or heat; seek medical advice if severe.",
-  armPain: "Rest and monitor; consult a doctor if persistent.",
-  abdominalCramps: "Hydrate and rest; seek medical attention if severe.",
-  bloatingPersistent: "Consult a doctor if chronic.",
-  indigestionFrequent: "Monitor diet and consult a doctor if persistent.",
-  acidRefluxSevere: "Seek medical evaluation.",
-  heartburnChronic: "Consult a doctor for ongoing symptoms.",
-  nauseaSevere: "Seek medical attention if persistent.",
-  vomitingSevere: "Seek emergency care if prolonged or bloody.",
-  diarrheaSevere: "Stay hydrated and seek medical attention if persistent.",
-  constipationSevere: "Consult a doctor if accompanied by pain or blood.",
-  dehydrationChild: "Ensure fluids; seek pediatric care immediately if severe.",
-  dehydrationAdult: "Drink fluids; seek medical attention if severe.",
-  feverPersistent: "Monitor and consult a doctor if lasting more than 3 days.",
-  feverHighChild: "Seek pediatrician care immediately.",
-  feverHighAdult: "Seek medical evaluation if above 39°C.",
-  chills: "Rest and monitor; consult a doctor if persistent.",
-  nightSweatsSevere: "Seek medical evaluation.",
-  unexplainedWeightLoss: "Consult a doctor to identify underlying causes.",
-  unexplainedWeightGain: "Monitor lifestyle; consult a doctor if persistent.",
-  appetiteLossSevere: "Seek medical evaluation.",
-  appetiteIncreaseSevere: "Consult a doctor for underlying causes.",
-  hairLossSudden: "Consult a dermatologist.",
-  brittleNails: "Maintain nutrition; consult a doctor if persistent.",
-  nailDiscoloration: "Seek medical advice for possible fungal infection.",
-  mouthUlcersFrequent: "Consult a dentist or doctor.",
-  badBreathPersistent: "Maintain hygiene; consult a dentist if persistent.",
-  hoarsenessPersistent: "Seek medical evaluation if lasts more than 2 weeks.",
-  coughBlood: "Seek emergency care immediately.",
-  vomitingBlood: "Seek immediate medical attention.",
-  abdominalPainSevere: "Seek emergency care immediately.",
-  swellingFace: "Could indicate allergic reaction; seek medical help.",
-  swellingHands: "Monitor and consult a doctor if persistent.",
-  swellingLegsFeet: "Elevate and consult a doctor if persistent.",
-  swellingAbdomen: "Consult a doctor to identify underlying causes.",
-  rashSevere: "Seek medical attention.",
-  rashSpreading: "Consult a doctor immediately.",
-  rashBlisters: "Keep area clean and avoid scratching; seek medical advice.",
-  rashItchy: "Use soothing creams and avoid scratching; consult a doctor if persistent.",
-  itchingSevere: "Seek medical evaluation if persistent.",
-  bruisingSevere: "Consult a doctor to rule out clotting disorders.",
-  bleedingSevere: "Apply pressure and seek emergency care.",
-  noseBleedSevere: "Seek medical attention immediately.",
-  dehydrationSevereAdult: "Seek emergency medical care.",
-  dehydrationSevereChild: "Seek pediatric emergency care.",
-  tremors: "Consult a doctor if persistent or worsening.",
-  seizures: "Seek emergency care immediately.",
-  confusionSudden: "Seek immediate medical attention.",
-  memoryLoss: "Consult a neurologist if persistent or worsening.",
-  speechDifficulty: "Seek emergency care immediately.",
-  swallowingDifficulty: "Consult a doctor promptly.",
-  visionLossSudden: "Seek emergency medical attention.",
-  faintingChild: "Ensure safety and seek pediatric evaluation.",
-  chestPainChild: "Seek emergency pediatric care.",
-  rapidBreathing: "Seek immediate medical attention if severe.",
-  slowBreathing: "Seek emergency care immediately.",
-  wheezingChild: "Use prescribed inhalers and consult pediatrician.",
-  persistentCoughChild: "Consult pediatrician if lasting more than a week.",
-  fatigueSevereChild: "Consult a pediatrician.",
-  abdominalPainChild: "Monitor and seek pediatric care if persistent or severe.",
-  vomitingChildSevere: "Seek pediatric emergency care immediately.",
-  diarrheaChildSevere: "Maintain hydration and seek medical help if persistent.",
-  rashChildSevere: "Consult pediatrician immediately.",
-  earPainChild: "Consult pediatrician if persistent or severe.",
-  eyeRednessChild: "Consult a pediatric ophthalmologist.",
-  feverChildHigh: "Seek immediate pediatric care.",
-  breathingDifficultyChild: "Seek emergency care immediately.",
-  seizuresChild: "Call emergency services immediately.",
-  traumaHead: "Seek emergency care immediately.",
-  traumaBody: "Monitor and seek medical attention if severe.",
-  poisoningChild: "Contact poison control or seek emergency care.",
-  poisoningAdult: "Seek medical attention immediately.",
-  severeAllergicReactionChild: "Seek emergency care immediately.",
-  severeAllergicReactionAdult: "Seek emergency care immediately.",
-  severeBurnChild: "Run cool water and seek immediate care.",
-  severeBurnAdult: "Run cool water and seek immediate care.",
-  brokenBoneChild: "Immobilize and seek pediatric care.",
-  brokenBoneAdult: "Immobilize and seek medical care.",
-  suspectedFracture: "Avoid moving affected area and seek care immediately.",
-  faintingAdult: "Lie down and seek medical attention if recurrent."
-    // Common Symptoms - Portuguese
-    gripe: "A gripe pode ser tratada com repouso e medicamentos para aliviar os sintomas. Consulte um médico se os sintomas piorarem.",
-    resfriado: "O resfriado geralmente passa em poucos dias. Descanse e beba líquidos. Se os sintomas persistirem, procure um médico.",
-    artrite: "Se você tem dor nas articulações, um anti-inflamatório pode ajudar. Consulte um ortopedista para um diagnóstico adequado.",
-    asma: "Se você tem dificuldade para respirar, use seu inalador. Se os sintomas não melhorarem, consulte um médico.",
-    diabetes: "Controle a alimentação e a glicose no sangue. Se tiver dúvidas, consulte um endocrinologista.",
-    hipertensao: "Monitore sua pressão arterial regularmente. Uma dieta balanceada e exercícios podem ajudar.",
-    depressao: "Se você está se sentindo constantemente triste ou desmotivado, é importante procurar ajuda de um profissional de saúde mental.",
-    hipotireoidismo: "Procure um endocrinologista para o tratamento adequado. O uso de medicamentos pode ser necessário.",
+    "cold": "A cold usually resolves in a few days. Rest and drink fluids. If symptoms persist, consult a doctor.",
+    "flu": "Flu can be treated with rest and medications to relieve symptoms. If symptoms worsen, consult a doctor.",
+    "asthma": "If you're having trouble breathing, use your inhaler. If symptoms do not improve, consult a doctor.",
+    "arthritis": "If you're experiencing joint pain, anti-inflammatory medications may help. Consult an orthopedist for proper diagnosis.",
+    "heartburn": "Try avoiding spicy and fatty foods. If heartburn continues, consult a gastroenterologist.",
+    "back pain": "Rest, stretching, and pain relief can help with back pain. If it persists, consult a doctor.",
+    "stomach ache": "Try resting and drinking warm fluids. If the pain continues, consult a doctor.",
+    "rash": "If you have a rash, avoid scratching it. If it worsens or does not improve, consult a dermatologist.",
+    "blurry vision": "If you're experiencing blurry vision, rest your eyes. If the problem persists, consult an ophthalmologist.",
+    "ear pain": "Ear pain can be a sign of an infection. If it persists, consult an ENT specialist.",
+    "nosebleed": "Pinch your nose and lean forward slightly. If the bleeding does not stop, seek medical help.",
+    "swollen feet": "Swollen feet can be caused by fluid retention. Try resting with your feet elevated. If it continues, consult a doctor.",
+    
+    "stroke": "A stroke is an emergency. If you or someone else has symptoms such as sudden weakness, numbness, or difficulty speaking, call emergency services immediately.",
+    "heart attack": "A heart attack is a medical emergency. If you experience chest pain, shortness of breath, or pain radiating to your arm or jaw, seek emergency help immediately.",
+    "severe bleeding": "If you are bleeding heavily, apply pressure to the wound and seek immediate medical attention.",
+    "poisoning": "If poisoning is suspected, contact a poison control center or seek emergency medical care immediately.",
+    "severe allergic reaction": "If you experience difficulty breathing, swelling, or dizziness after an allergic reaction, seek emergency medical help immediately.",
+    "severe burn": "If you have a severe burn, run cool water over it and seek medical care immediately.",
+    "broken bone": "If you suspect a broken bone, avoid moving the affected area and seek medical help immediately."
 
-    // Emergency Conditions - Portuguese
-    sepse: "A sepse é uma infecção grave. Se você tiver febre, calafrios, ritmo cardíaco rápido ou confusão, procure ajuda médica imediatamente.",
-    meningite: "Meningite pode ser grave. Sintomas incluem febre, dor de cabeça e rigidez no pescoço. Procure atendimento médico imediatamente.",
-    apendicite: "Se você sentir dor aguda no lado inferior direito do abdômen, pode ter apendicite. Procure ajuda médica imediatamente.",
-    pedrasRins: "Pedras nos rins podem causar dor intensa nas costas ou abdômen. Beba muitos líquidos e consulte um médico para o tratamento adequado.",
-    pedrasVesicula: "Se você sentir dor no lado superior direito do abdômen, pode ser causada por pedras na vesícula. Consulte um médico para uma avaliação.",
-    pneumonia: "Se você tiver tosse persistente, febre e falta de ar, pode ter pneumonia. Procure ajuda médica imediatamente.",
-    comaDiabetico: "O coma diabético é uma emergência. Se você tiver alta glicose no sangue, dificuldade para respirar ou confusão, procure ajuda médica imediatamente.",
-    emboliaPulmonar: "Embolia pulmonar é uma condição grave que pode causar falta de ar súbita e dor no peito. Procure atendimento médico imediato.",
-    ataqueCardiaco: "Um ataque cardíaco é uma emergência. Se você sentir dor no peito, falta de ar ou dor irradiando para o braço ou mandíbula, procure ajuda imediatamente.",
-    insuficienciaRenal: "Se você tiver dificuldade para urinar ou dor nas costas, pode ter insuficiência renal. Procure um nefrologista imediatamente."
-  };
+    "headache": "You can try resting, drinking water, and taking a mild pain reliever.",
+    "fever": "Consider taking an antipyretic and resting. If the fever persists, consult a doctor.",
+    "cough": "Cough can be a symptom of various conditions. If it persists, seek medical attention.",
+    "nausea": "Try drinking small sips of liquid and resting. If it persists, consult a doctor.",
+    "muscle pain": "Light stretching and rest can help alleviate the pain.",
+    "anxiety": "Try deep breathing, meditation, and if necessary, consult a therapist.",
+    "shortness of breath": "If you feel difficulty breathing, seek medical assistance immediately.",
+    "chest pain": "Chest pain can be an emergency sign, consult a doctor immediately.",
+    "dizziness": "Dizziness can have various causes. If it’s severe or persists, consult a doctor.",
+    "fatigue": "Fatigue can be caused by various reasons. Try resting and seek medical advice if it continues.",
+    "insomnia": "Try practicing relaxation techniques before bed. If insomnia persists, consult a doctor.",
+    "trouble swallowing": "This could be a symptom of various conditions, consult a doctor if it continues.",
+    "diarrhea": "Stay hydrated. If it persists for more than two days, consult a doctor.",
+    "constipation": "Try increasing fiber and water intake. If it doesn't improve, consult a doctor.",
+    "vomiting": "Try resting and drinking fluids slowly. If vomiting persists, consult a doctor.",
+    "eye irritation": "If you have itching, redness, or pain in your eyes, avoid rubbing them and consult an ophthalmologist.",
+    "allergy": "Avoid the allergen, and if necessary, take an antihistamine. If symptoms persist, consult a doctor.",
 
-// Registro do modelo
+    "cold": "A cold usually resolves in a few days. Rest and drink fluids. If symptoms persist, consult a doctor.",
+    "flu": "Flu can be treated with rest and medications to relieve symptoms. If symptoms worsen, consult a doctor.",
+    "asthma": "If you're having trouble breathing, use your inhaler. If symptoms do not improve, consult a doctor.",
+    "arthritis": "If you're experiencing joint pain, anti-inflammatory medications may help. Consult an orthopedist for proper diagnosis.",
+    "heartburn": "Try avoiding spicy and fatty foods. If heartburn continues, consult a gastroenterologist.",
+    "back pain": "Rest, stretching, and pain relief can help with back pain. If it persists, consult a doctor.",
+    "stomach ache": "Try resting and drinking warm fluids. If the pain continues, consult a doctor.",
+    "rash": "If you have a rash, avoid scratching it. If it worsens or does not improve, consult a dermatologist.",
+    "blurry vision": "If you're experiencing blurry vision, rest your eyes. If the problem persists, consult an ophthalmologist.",
+    "ear pain": "Ear pain can be a sign of an infection. If it persists, consult an ENT specialist.",
+    "nosebleed": "Pinch your nose and lean forward slightly. If the bleeding does not stop, seek medical help.",
+    "swollen feet": "Swollen feet can be caused by fluid retention. Try resting with your feet elevated. If it continues, consult a doctor.",
+
+    "stroke": "A stroke is an emergency. If you or someone else has symptoms such as sudden weakness, numbness, or difficulty speaking, call emergency services immediately.",
+    "heart attack": "A heart attack is a medical emergency. If you experience chest pain, shortness of breath, or pain radiating to your arm or jaw, seek emergency help immediately.",
+    "severe bleeding": "If you are bleeding heavily, apply pressure to the wound and seek immediate medical attention.",
+    "poisoning": "If poisoning is suspected, contact a poison control center or seek emergency medical care immediately.",
+    "severe allergic reaction": "If you experience difficulty breathing, swelling, or dizziness after an allergic reaction, seek emergency medical help immediately.",
+    "severe burn": "If you have a severe burn, run cool water over it and seek medical care immediately.",
+    "broken bone": "If you suspect a broken bone, avoid moving the affected area and seek medical help immediately.",
+
+   
+    "sepsis": "Sepsis is a life-threatening infection. If you experience fever, chills, rapid heart rate, or confusion, seek medical attention immediately.",
+    "meningitis": "Meningitis can be serious. Symptoms include fever, headache, and stiff neck. Seek emergency medical care immediately.",
+    "appendicitis": "If you have sharp pain in the lower right abdomen, you may have appendicitis. Seek medical help immediately.",
+    "kidney stones": "Kidney stones can cause severe pain in the lower back or abdomen. Drink plenty of fluids and consult a doctor for proper treatment.",
+    "gallstones": "If you experience pain in the upper right abdomen, it may be caused by gallstones. Consult a doctor for an evaluation.",
+    "pneumonia": "If you experience persistent cough, fever, and shortness of breath, you may have pneumonia. Seek medical help immediately.",
+    "diabetic coma": "A diabetic coma is an emergency. If you have high blood sugar, difficulty breathing, or confusion, seek immediate medical help."
+
+    "headache": "You can try resting, drinking water, and taking a mild pain reliever.",
+    "fever": "Consider taking an antipyretic and resting. If the fever persists, consult a doctor.",
+    "cough": "Cough can be a symptom of various conditions. If it persists, seek medical attention.",
+    "nausea": "Try drinking small sips of liquid and resting. If it persists, consult a doctor.",
+    "muscle pain": "Light stretching and rest can help alleviate the pain.",
+    "anxiety": "Try deep breathing, meditation, and if necessary, consult a therapist.",
+    "shortness of breath": "If you feel difficulty breathing, seek medical assistance immediately.",
+    "chest pain": "Chest pain can be an emergency sign, consult a doctor immediately.",
+    "dizziness": "Dizziness can have various causes. If it’s severe or persists, consult a doctor.",
+    "fatigue": "Fatigue can be caused by various reasons. Try resting and seek medical advice if it continues.",
+    "insomnia": "Try practicing relaxation techniques before bed. If insomnia persists, consult a doctor.",
+    "trouble swallowing": "This could be a symptom of various conditions, consult a doctor if it continues.",
+    "diarrhea": "Stay hydrated. If it persists for more than two days, consult a doctor.",
+    "constipation": "Try increasing fiber and water intake. If it doesn't improve, consult a doctor.",
+    "vomiting": "Try resting and drinking fluids slowly. If vomiting persists, consult a doctor.",
+    "eye irritation": "If you have itching, redness, or pain in your eyes, avoid rubbing them and consult an ophthalmologist.",
+    "allergy": "Avoid the allergen, and if necessary, take an antihistamine. If symptoms persist, consult a doctor.",
+
+    "cold": "A cold usually resolves in a few days. Rest and drink fluids. If symptoms persist, consult a doctor.",
+    "flu": "Flu can be treated with rest and medications to relieve symptoms. If symptoms worsen, consult a doctor.",
+    "asthma": "If you're having trouble breathing, use your inhaler. If symptoms do not improve, consult a doctor.",
+    "arthritis": "If you're experiencing joint pain, anti-inflammatory medications may help. Consult an orthopedist for proper diagnosis.",
+    "heartburn": "Try avoiding spicy and fatty foods. If heartburn continues, consult a gastroenterologist.",
+    "back pain": "Rest, stretching, and pain relief can help with back pain. If it persists, consult a doctor.",
+    "stomach ache": "Try resting and drinking warm fluids. If the pain continues, consult a doctor.",
+    "rash": "If you have a rash, avoid scratching it. If it worsens or does not improve, consult a dermatologist.",
+    "blurry vision": "If you're experiencing blurry vision, rest your eyes. If the problem persists, consult an ophthalmologist.",
+    "ear pain": "Ear pain can be a sign of an infection. If it persists, consult an ENT specialist.",
+    "nosebleed": "Pinch your nose and lean forward slightly. If the bleeding does not stop, seek medical help.",
+    "swollen feet": "Swollen feet can be caused by fluid retention. Try resting with your feet elevated. If it continues, consult a doctor.",
+
+
+    "stroke": "A stroke is an emergency. If you or someone else has symptoms such as sudden weakness, numbness, or difficulty speaking, call emergency services immediately.",
+    "heart attack": "A heart attack is a medical emergency. If you experience chest pain, shortness of breath, or pain radiating to your arm or jaw, seek emergency help immediately.",
+    "severe bleeding": "If you are bleeding heavily, apply pressure to the wound and seek immediate medical attention.",
+    "poisoning": "If poisoning is suspected, contact a poison control center or seek emergency medical care immediately.",
+    "severe allergic reaction": "If you experience difficulty breathing, swelling, or dizziness after an allergic reaction, seek emergency medical help immediately.",
+    "severe burn": "If you have a severe burn, run cool water over it and seek medical care immediately.",
+    "broken bone": "If you suspect a broken bone, avoid moving the affected area and seek medical help immediately.",
+
+    "sepsis": "Sepsis is a life-threatening infection. If you experience fever, chills, rapid heart rate, or confusion, seek medical attention immediately.",
+    "meningitis": "Meningitis can be serious. Symptoms include fever, headache, and stiff neck. Seek emergency medical care immediately.",
+    "appendicitis": "If you have sharp pain in the lower right abdomen, you may have appendicitis. Seek medical help immediately.",
+    "kidney stones": "Kidney stones can cause severe pain in the lower back or abdomen. Drink plenty of fluids and consult a doctor for proper treatment.",
+    "gallstones": "If you experience pain in the upper right abdomen, it may be caused by gallstones. Consult a doctor for an evaluation.",
+    "pneumonia": "If you experience persistent cough, fever, and shortness of breath, you may have pneumonia. Seek medical help immediately.",
+    "diabetic coma": "A diabetic coma is an emergency. If you have high blood sugar, difficulty breathing, or confusion, seek immediate medical help.",
+
+    "high blood pressure": "High blood pressure can be managed with lifestyle changes, medication, and regular monitoring. Consult a doctor for guidance.",
+    "depression": "If you feel sad, hopeless, or lack interest in activities, it's important to seek help from a mental health professional.",
+    "anemia": "Anemia can cause fatigue and weakness. Iron-rich foods or supplements may help, but it's important to consult a doctor for treatment.",
+    "gastroenteritis": "Gastroenteritis causes vomiting and diarrhea. Stay hydrated and rest. If symptoms last longer than two days, consult a doctor.",
+    "UTI": "Urinary tract infections (UTIs) can cause pain or burning during urination. Drink plenty of fluids and consult a doctor for antibiotics.",
+    "pregnancy symptoms": "If you're pregnant and experiencing symptoms like nausea, fatigue, or missed periods, take a test and consult a doctor for care.",
+    "eczema": "Eczema can cause itchy, inflamed skin. Moisturize regularly and consult a dermatologist for appropriate treatment.",
+    "hemorrhoids": "Hemorrhoids can be treated with over-the-counter creams and a high-fiber diet. If the pain persists, consult a doctor.",
+    "hormonal imbalance": "Hormonal imbalances can cause irregular periods, weight changes, and mood swings. Consult an endocrinologist for proper treatment.",
+    "migraine": "Migraines can be treated with pain relievers and avoiding triggers. If migraines are frequent, consult a doctor for a treatment plan.",
+    "chronic pain": "Chronic pain can be managed with physical therapy, medications, and lifestyle changes. Consult a pain specialist for more options."
+        "headache": "Try resting, drinking water, and taking a mild pain reliever.",
+        "fever": "Consider taking an antipyretic and resting. If the fever persists, consult a doctor.",
+        "cough": "Cough can be a symptom of various conditions. If it persists, seek medical attention.",
+        "nausea": "Try drinking small sips of liquid and resting. If it persists, consult a doctor.",
+        "muscle pain": "Light stretching and rest can help alleviate the pain.",
+        "anxiety": "Try deep breathing, meditation, and if necessary, consult a therapist.",
+        "shortness of breath": "If you have trouble breathing, seek immediate medical assistance.",
+        "chest pain": "Chest pain could be an emergency. Consult a doctor immediately.",
+        "dizziness": "Dizziness can be caused by many factors. If it’s severe or persists, consult a doctor.",
+        "fatigue": "Fatigue can be caused by several reasons. Try resting, and if it continues, consult a doctor.",
+        "insomnia": "Try practicing relaxation techniques before bed. If insomnia persists, consult a doctor.",
+        "trouble swallowing": "This could be a symptom of various conditions. If it persists, consult a doctor.",
+        "diarrhea": "Stay hydrated. If it persists for more than two days, seek medical attention.",
+        "constipation": "Try increasing fiber and water intake. If it doesn’t improve, consult a doctor.",
+        "vomiting": "Try resting and drinking fluids slowly. If vomiting persists, consult a doctor.",
+        "eye irritation": "If you have itching, redness, or pain in the eyes, avoid rubbing them and consult an ophthalmologist.",
+        "allergy": "Avoid the allergen, and if necessary, take an antihistamine. If symptoms persist, consult a doctor.",
+      
+        "gripe": "A gripe pode ser tratada com repouso e medicamentos para aliviar os sintomas. Consulte um médico se os sintomas piorarem.",
+        "resfriado": "O resfriado geralmente passa em poucos dias. Descanse e beba líquidos. Se os sintomas persistirem, procure um médico.",
+        "artrite": "Se você tem dor nas articulações, um anti-inflamatório pode ajudar. Consulte um ortopedista para um diagnóstico adequado.",
+        "asma": "Se você tem dificuldade para respirar, use seu inalador. Se os sintomas não melhorarem, consulte um médico.",
+        "diabetes": "Controle a alimentação e a glicose no sangue. Se tiver dúvidas, consulte um endocrinologista.",
+        "hipertensão": "Monitore sua pressão arterial regularmente. Uma dieta balanceada e exercícios podem ajudar.",
+        "depressão": "Se você está se sentindo constantemente triste ou desmotivado, é importante procurar ajuda de um profissional de saúde mental.",
+        "hipotireoidismo": "Procure um endocrinologista para o tratamento adequado. O uso de medicamentos pode ser necessário.",
+        
+      
+        "flu": "Flu can be treated with rest and medications to alleviate symptoms. If symptoms worsen, consult a doctor.",
+        "cold": "A cold usually passes within a few days. Rest and drink plenty of fluids. If symptoms persist, consult a doctor.",
+        "arthritis": "If you have joint pain, an anti-inflammatory may help. Consult an orthopedist for a proper diagnosis.",
+        "asthma": "If you have trouble breathing, use your inhaler. If symptoms don’t improve, consult a doctor.",
+        "diabetes": "Control your diet and blood sugar levels. If you have questions, consult an endocrinologist.",
+        "hypertension": "Regularly monitor your blood pressure. A balanced diet and exercise may help.",
+        "depression": "If you feel consistently sad or unmotivated, it’s important to seek help from a mental health professional.",
+        "hypothyroidism": "Consult an endocrinologist for appropriate treatment. Medication may be necessary.",
+    };
 chatCentral.registerModel('Medical-Model', 'Medical Assistant', (input) => {
   return healthResponses[input.toLowerCase()] || 
          "Sorry, I don't have a ready answer for that. Consider consulting a doctor!";
 });
 
-// Envio da mensagem
 async function sendMessage() {
   const text = userInput.value.trim();
   if (!text) return;
@@ -641,12 +481,8 @@ async function sendMessage() {
   scrollToBottom();
 }
 
-// Evento Enter
 userInput.addEventListener('keypress', (e) => {
-  if (e.key === 'Enter') {
-    e.preventDefault();
-    sendMessage();
-  }
+  if (e.key === 'Enter') { e.preventDefault(); sendMessage(); }
 });
 
 // Mensagem inicial
@@ -654,7 +490,5 @@ addMessage('bot', chatHistory[0].content);
 addHistoryItem(chatHistory[0].content);
 scrollToBottom();
 </script>
-
-
 </body>
 </html>
