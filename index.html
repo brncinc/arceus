@@ -9,7 +9,6 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
-
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
@@ -21,33 +20,6 @@ body {
   flex-direction: column;
   overflow: hidden;
 }
-
-.main-container { flex: 1; display: flex; overflow: hidden; }
-
-.sidebar {
-  width: 220px;
-  background-color: #1f2a3d;
-  border-right: 1px solid #333;
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  overflow-y: auto;
-  transition: all 0.3s ease;
-}
-.sidebar h2 { font-size: 1.2rem; margin-bottom: 10px; color: #00bcd4; }
-.history-item {
-  padding: 8px 12px;
-  background-color: #2c3e50;
-  border-radius: 20px;
-  cursor: pointer;
-  font-size: 0.9rem;
-  transition: background-color 0.2s;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-.history-item:hover { background-color: #34495e; }
 
 .chat-container {
   flex: 1;
@@ -98,7 +70,6 @@ body {
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 20px;
 }
-
 .chat-input {
   display: flex;
   position: absolute;
@@ -144,20 +115,8 @@ footer {
   padding: 10px;
   font-weight: bold;
 }
-
-@media (max-width: 768px) {
-  .sidebar { position: absolute; left: -220px; top: 0; height: 100%; z-index: 1000; }
-  .sidebar.show { left: 0; }
-  .main-container { flex-direction: column; }
-  .chat-container { border-left: none; }
-}
-@media (min-width: 769px) {
-  .sidebar { width: 60px; }
-  .sidebar:hover { width: 220px; }
-}
 </style>
 </head>
-<body>
 <body>
 
 <div class="chat-container">
@@ -173,16 +132,12 @@ footer {
   </div>
 </div>
 
-<footer>BRNC GRUP AI ®</footer>
-
-<!-- Font Awesome para ícones -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<footer>BRNC INC ® Registered</footer>
 
 <script>
 const chatBody = document.getElementById('chatBody');
 const userInput = document.getElementById('userInput');
 
-// Funções básicas
 function addMessage(role, content) {
   const msg = document.createElement('div');
   msg.className = 'message ' + role;
@@ -191,42 +146,34 @@ function addMessage(role, content) {
   chatBody.scrollTop = chatBody.scrollHeight;
 }
 
-function clearChat() {
-  chatBody.innerHTML = '';
-}
+function clearChat() { chatBody.innerHTML = ''; }
 
 function requestMedicalHelp() {
   userInput.value = "Preciso de atendimento médico!";
   sendMessage();
 }
 
-// ChatCentral: histórico e modelos
 class ChatCentral {
   constructor() {
     this.chatHistory = [];
     this.models = {};
   }
-
   registerModel(modelId, description, processFunction) {
     this.models[modelId] = { description, process: processFunction };
   }
-
   async processInput(input) {
     const modelKey = Object.keys(this.models)[0];
     if (!modelKey) return "No model registered.";
     return this.models[modelKey].process(input);
   }
-
-  addToHistory(role, content) {
-    this.chatHistory.push({ role, content });
-  }
+  addToHistory(role, content) { this.chatHistory.push({ role, content }); }
 }
 
 const chatCentral = new ChatCentral();
 
 // Respostas médicas
 const healthResponses = {
-\ "headache": "You can try resting, drinking water, and taking a mild pain reliever.",
+  "headache": "You can try resting, drinking water, and taking a mild pain reliever.",
   "fever": "Consider taking an antipyretic and resting. If the fever persists, consult a doctor.",
   "cough": "Cough can be a symptom of various conditions. If it persists, seek medical attention.",
   "nausea": "Try drinking small sips of liquid and resting. If it persists, consult a doctor.",
@@ -245,70 +192,7 @@ const healthResponses = {
   "allergy": "Avoid the allergen, and if necessary, take an antihistamine. If symptoms persist, consult a doctor.",
   "migraine": "Severe migraines may need specific medication. Rest in a dark room and consult a doctor if frequent.",
   "back pain": "Maintain good posture and apply a warm compress. Consult a doctor if pain persists.",
-  "ear pain": "Could be an infection. Avoid inserting objects in the ear and consult a doctor if it continues.",
-  "sore throat": "Gargle warm salt water and rest your voice. If severe or persistent, see a doctor.",
-  "runny nose": "Stay hydrated and rest. Usually resolves in a few days.",
-  "sinusitis": "Steam inhalation can help. If pain and fever persist, consult a doctor.",
-  "toothache": "Maintain oral hygiene and avoid very cold or hot foods. See a dentist if pain continues.",
-  "skin rash": "Avoid scratching and apply soothing lotion. If it spreads, consult a dermatologist.",
-  "acne": "Keep skin clean and avoid squeezing pimples. Seek dermatological treatment if severe.",
-  "eczema": "Use moisturizing cream and avoid irritants. Consult a dermatologist for persistent cases.",
-  "psoriasis": "This requires medical monitoring. Moisturizers and specific medication may help.",
-  "hair loss": "Can have many causes. Maintain a healthy diet and consult a dermatologist if excessive.",
-  "menstrual cramps": "Apply heat to the abdomen and consider pain relief medication if necessary.",
-  "premenstrual syndrome": "Exercise and a balanced diet can help. Consult a gynecologist if severe.",
-  "pregnancy nausea": "Eat small, frequent meals. If excessive, consult your obstetrician.",
-  "menopause symptoms": "Talk to your doctor about possible treatments like hormone therapy.",
-  "urinary infection": "Drink plenty of fluids and consult a doctor for appropriate antibiotics.",
-  "kidney stones": "Stay hydrated and seek medical help if experiencing intense pain.",
-  "liver pain": "Pain in this region requires medical evaluation. Seek a doctor promptly.",
-  "stomach ulcer": "Avoid spicy foods and alcohol. Seek medical evaluation.",
-  "gastritis": "Eat light meals and avoid irritants. If persistent, consult a gastroenterologist.",
-  "indigestion": "Avoid overeating and very fatty foods. Rest and hydrate.",
-  "acid reflux": "Avoid lying down after eating and reduce acidic foods.",
-  "obesity": "Maintain a balanced diet and regular physical activity. Seek nutritional support.",
-  "malnutrition": "Seek a doctor or nutritionist for an adequate recovery diet.",
-  "dehydration": "Drink water frequently. If severe, seek urgent medical care.",
-  "heat stroke": "Cool the body and hydrate immediately. Seek emergency care if severe.",
-  "hypothermia": "Warm the body gradually and seek emergency assistance.",
-  "anemia": "Can be treated with iron-rich foods or supplements. Consult a doctor for diagnosis.",
-  "leukemia": "Requires specialized treatment. Seek an oncologist.",
-  "cancer": "Early diagnosis is essential. Consult an oncologist for proper treatment.",
-  "HIV": "Seek medical care and maintain antiretroviral treatment.",
-  "AIDS": "Requires continuous treatment and medical monitoring.",
-  "hepatitis": "Consult a doctor for tests and specific treatment.",
-  "tuberculosis": "Requires long-term treatment with antibiotics. Seek medical care.",
-  "pneumonia": "Seek immediate medical help for treatment.",
-  "bronchitis": "Rest, hydrate, and consult a doctor if persistent.",
-  "COVID-19": "Isolate, hydrate, rest, and follow medical advice.",
-  "malaria": "Seek urgent medical help for diagnosis and treatment.",
-  "dengue": "Hydrate and seek medical attention for proper care.",
-  "chikungunya": "Rest and hydrate. Consult a doctor if pain is intense.",
-  "zika virus": "Hydrate and rest. Seek medical attention if pregnant.",
-  "yellow fever": "Vaccination is prevention. Seek medical help if symptoms occur.",
-  "rabies": "Seek emergency medical help immediately after exposure.",
-  "tetanus": "Requires urgent medical care and vaccination.",
-  "measles": "Consult a doctor and stay isolated to avoid transmission.",
-  "mumps": "Rest and hydrate. Consult a doctor if pain is severe.",
-  "chickenpox": "Avoid scratching lesions and consult a doctor if severe.",
-  "rubella": "Stay in isolation and seek medical evaluation.",
-  "stroke": "A stroke is an emergency. Call emergency services immediately if you notice sudden weakness, numbness, or difficulty speaking.",
-  "heart attack": "A heart attack is a medical emergency. If you experience chest pain, shortness of breath, or pain radiating to your arm or jaw, seek help immediately.",
-  "severe bleeding": "If you are bleeding heavily, apply pressure to the wound and seek immediate medical attention.",
-  "poisoning": "If poisoning is suspected, contact a poison control center or seek emergency medical care immediately.",
-  "severe allergic reaction": "If you experience difficulty breathing, swelling, or dizziness after an allergic reaction, seek emergency medical help immediately.",
-  "severe burn": "If you have a severe burn, run cool water over it and seek medical care immediately.",
-  "broken bone": "If you suspect a broken bone, avoid moving the affected area and seek medical help immediately.",
-  "gripe": "A gripe pode ser tratada com repouso e medicamentos para aliviar os sintomas. Consulte um médico se os sintomas piorarem.",
-  "resfriado": "O resfriado geralmente passa em poucos dias. Descanse e beba líquidos. Se os sintomas persistirem, procure um médico.",
-  "artrite": "Se você tem dor nas articulações, um anti-inflamatório pode ajudar. Consulte um ortopedista para um diagnóstico adequado.",
-  "asma": "Se você tem dificuldade para respirar, use seu inalador. Se os sintomas não melhorarem, consulte um médico.",
-  "diabetes": "Controle a alimentação e a glicose no sangue. Se tiver dúvidas, consulte um endocrinologista.",
-  "hipertensão": "Monitore sua pressão arterial regularmente. Uma dieta balanceada e exercícios podem ajudar.",
-  "depressão": "Se você está se sentindo constantemente triste ou desmotivado, é importante procurar ajuda de um profissional de saúde mental.",
-  "hipotireoidismo": "Procure um endocrinologista para o tratamento adequado. O uso de medicamentos pode ser necessário."
-};
-
+}; 
 // Registro do modelo
 chatCentral.registerModel('Medical-Model', 'Medical Assistant', (input) => {
   const lowerInput = input.toLowerCase();
@@ -320,58 +204,36 @@ chatCentral.registerModel('Medical-Model', 'Medical Assistant', (input) => {
   return "Desculpe, não encontrei uma resposta específica. Recomendo consultar um médico.";
 });
 
-// Função principal de envio de mensagem
+// Envio de mensagem
 async function sendMessage() {
   const text = userInput.value.trim();
   if (!text) return;
-
-  // Mensagem do usuário
   addMessage('user', text);
   chatCentral.addToHistory('user', text);
   userInput.value = '';
 
-  // Indicador de digitação
   const typingElement = document.createElement('div');
   typingElement.className = 'message bot';
   typingElement.textContent = '...';
   chatBody.appendChild(typingElement);
   chatBody.scrollTop = chatBody.scrollHeight;
 
-  // Obter resposta do modelo
   const botResponse = await chatCentral.processInput(text);
 
   chatBody.removeChild(typingElement);
   addMessage('bot', botResponse);
   chatCentral.addToHistory('bot', botResponse);
-
-  // Envio para kernel blockchain (se disponível)
-  try {
-    await fetch("http://localhost:3000/block/register", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        nodeFrom: "Arceus-Client",
-        modelId: "Medical-Model",
-        input: text,
-        output: botResponse
-      })
-    });
-  } catch (err) {
-    console.error("Erro ao registrar no kernel:", err);
-  }
 }
 
-// Envio ao pressionar Enter
+// Enter envia mensagem
 userInput.addEventListener('keypress', (e) => {
-  if (e.key === 'Enter') {
-    e.preventDefault();
-    sendMessage();
-  }
+  if (e.key === 'Enter') { e.preventDefault(); sendMessage(); }
 });
 
 // Mensagem inicial
 addMessage('bot', "Hello! I am Arceus AI, how can I assist you today?");
 chatCentral.addToHistory('bot', "Hello! I am Arceus AI, how can I assist you today?");
 </script>
+
 </body>
 </html>
