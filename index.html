@@ -1,3 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" href="a.jpeg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Arceus</title>
+ <style>
+  @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #0a1d37; /* Dark Navy Blue */
+    color: #fff; /* White Text */
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  .main-container {
+    flex: 1;
+    display: flex;
+    overflow: hidden;
+  }
+
+  /* Sidebar */
+  .sidebar {
+    width: 220px;
+    background-color: #1f2a3d; /* Darker Navy */
+    border-right: 1px solid #333;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    overflow-y: auto;
+  }
+
+  .sidebar h2 {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+    color: #00bcd4; /* Cyan Blue */
+  }
+
+  .history-item {
+    padding: 8px 12px;
+    background-color: #2c3e50; /* Dark Blue */
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background-color 0.2s;
+  }
+
+  .history-item:hover {
+    background-color: #34495e; /* Darker Blue on Hover */
+  }
+
+  /* Chat Container */
+  .chat-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background-color: #17202a; /* Dark Grayish Blue */
+    border-left: 1px solid #333;
+    position: relative;
+  }
+
+  .chat-header {
+    background-color: #002f6c; /* Strong Navy */
+    color: #fff;
+    padding: 15px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.2rem;
+  }
+
+  .chat-body {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    scroll-behavior: smooth;
+    background-color: #17202a; /* Dark Grayish Blue */
+    padding-bottom: 50px; /* To make room for input box */
+  }
+
+  .message {
+    padding: 12px 20px;
+    border-radius: 20px;
+    max-width: 70%;
+    word-wrap: break-word;
+    font-size: 1rem;
+    line-height: 1.4;
+    transition: all 0.2s;
+    margin-bottom: 10px;
+  }
+
+  .message.user {
+    background-color: #00796b; /* Dark Green */
+    color: #fff;
+    align-self: flex-end;
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 20px;
+  }
+
+  .message.bot {
+    background-color: #1a73e8; /* Lighter Blue */
+    color: #fff;
+    align-self: flex-start;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 20px;
+  }
+
+  .chat-input {
+    display: flex;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background-color: #1f2a3d; /* Darker Navy */
+    padding: 10px;
+    border-top: 1px solid #333;
+  }
+
+  .chat-input input {
+    flex: 1;
+    padding: 12px 15px;
+    border: none;
+    outline: none;
+    font-size: 1rem;
+    background-color: #34495e; /* Dark Blue */
+    color: #fff;
+    border-radius: 20px;
+  }
+
+  .chat-input button {
+    padding: 12px 20px;
+    background-color: #00bcd4; /* Cyan */
+    border: none;
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 20px;
+    margin-left: 10px;
+    transition: background-color 0.2s;
+  }
+
+  .chat-input button:hover {
+    background-color: #008c9e; /* Darker Cyan */
+  }
+
+  /* Footer */
+  footer {
+    background-color: #002f6c; /* Strong Navy */
+    color: #fff;
+    text-align: center;
+    padding: 10px;
+    font-weight: bold;
+  }
+
+  /* Chat Body Styling: Auto Scroll on New Messages */
+  .chat-body {
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    flex-grow: 1;
+    padding: 20px;
+  }
+
+  /* Input Box Adjustments */
+  .chat-input input:focus {
+    background-color: #2c3e50; /* Slightly lighter blue for focus */
+  }
+</style>
+
+</head>
+<body>
+<div class="main-container">
+  <div class="sidebar">
+    <h2>History</h2>
+    <div id="historyList"></div>
+  </div>
+
+  <div class="chat-container">
+    <div class="chat-header">Arceus</div>
+    <div class="chat-body" id="chatBody">
+      <div class="message bot">Hello! I am Arceus AI, how can I assist you today?</div>
+    </div>
+    <div class="chat-input">
+      <input type="text" id="userInput" placeholder="Type your message...">
+      <button onclick="sendMessage()">Send</button>
+    </div>
+  </div>
+</div>
+
+<footer>FOR BRNC GRUP AI</footer>
+
 <script>
 const chatBody = document.getElementById('chatBody');
 const userInput = document.getElementById('userInput');
@@ -182,3 +382,6 @@ userInput.addEventListener('keypress', (e) => {
   if (e.key === 'Enter') sendMessage();
 });
 </script>
+
+</body>
+</html>
