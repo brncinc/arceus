@@ -320,10 +320,10 @@ class ChatCentral {
 const chatCentral = new ChatCentral();
 chatCentral.registerNode('LocalNode');
 
-// Respostas em inglês e português
+// Respostas de saúde
 const healthResponses = {
-// Common Symptoms - English
-    headache: "Try resting, drinking water, and taking a mild pain reliever.",
+  // English
+     headache: "Try resting, drinking water, and taking a mild pain reliever.",
     fever: "Consider taking an antipyretic and resting. If the fever persists, consult a doctor.",
     cough: "Cough can be a symptom of various conditions. If it persists, seek medical attention.",
     nausea: "Try drinking small sips of liquid and resting. If it persists, consult a doctor.",
@@ -613,7 +613,8 @@ const healthResponses = {
 
 // Registro do modelo
 chatCentral.registerModel('Medical-Model', 'Medical Assistant', (input) => {
-  return healthResponses[input.toLowerCase()] || "Sorry, I don't have a ready answer for that. Consider consulting a doctor!";
+  return healthResponses[input.toLowerCase()] || 
+         "Sorry, I don't have a ready answer for that. Consider consulting a doctor!";
 });
 
 // Envio da mensagem
