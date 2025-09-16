@@ -222,7 +222,6 @@
 </div>
 
 <footer>BRNC GRUP AI ®</footer>
-
 <script>
 const chatBody = document.getElementById('chatBody');
 const userInput = document.getElementById('userInput');
@@ -293,8 +292,8 @@ class ChatCentral {
 const chatCentral = new ChatCentral();
 chatCentral.registerNode('LocalNode');
 
-chatCentral.registerModel('Medical-Model', 'Medical Assistant', (input) => {
-  const responses = {
+// Unified health responses
+const healthResponses = {
 // Common Symptoms - English
     headache: "Try resting, drinking water, and taking a mild pain reliever.",
     fever: "Consider taking an antipyretic and resting. If the fever persists, consult a doctor.",
@@ -583,7 +582,9 @@ chatCentral.registerModel('Medical-Model', 'Medical Assistant', (input) => {
     ataqueCardiaco: "Um ataque cardíaco é uma emergência. Se você sentir dor no peito, falta de ar ou dor irradiando para o braço ou mandíbula, procure ajuda imediatamente.",
     insuficienciaRenal: "Se você tiver dificuldade para urinar ou dor nas costas, pode ter insuficiência renal. Procure um nefrologista imediatamente."
   };
-  return responses[input.toLowerCase()] || "Sorry, I don't have a ready answer for that. Consider consulting a doctor!";
+// Register model
+chatCentral.registerModel('Medical-Model', 'Medical Assistant', (input) => {
+  return healthResponses[input.toLowerCase()] || "Sorry, I don't have a ready answer for that. Consider consulting a doctor!";
 });
 
 // Send message
