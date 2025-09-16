@@ -277,7 +277,109 @@
   chatCentral.registrarNode('LocalNode');
   chatCentral.registrarModelo('Medical-Model', 'Medical Assistant', (input) => {
     const responses = {
-        // Common Symptoms in English
+  <div class="main-container">
+  <div class="sidebar">
+    <h2>History</h2>
+    <div id="historyList"></div>
+  </div>
+
+  <div class="chat-container">
+    <div class="chat-header">Arceus</div>
+    <div class="chat-body" id="chatBody">
+      <div class="message bot">Hello! I am Arceus AI, how can I assist you today?</div>
+    </div>
+    <div class="chat-input">
+      <input type="text" id="userInput" placeholder="Type your message...">
+      <button onclick="sendMessage()">Send</button>
+    </div>
+  </div>
+</div>
+
+<footer>Arceus AI</footer>
+
+<script>
+const chatBody = document.getElementById('chatBody');
+const userInput = document.getElementById('userInput');
+const historyList = document.getElementById('historyList');
+
+let chatHistory = [
+  { role: 'bot', content: "Hello! I am Arceus AI, how can I assist you today?" }
+];
+
+class ChatCentral {
+  constructor() {
+    this.chatHistory = chatHistory;
+    this.models = {};
+    this.nodes = {};
+    this.auditLog = [];
+    this.blockchainQueue = [];
+    this.totalBlocks = 0;
+  }
+
+  // Simple hash function for blocks
+  hash(str) {
+    return Array.from(new TextEncoder().encode(str))
+      .reduce((hash, b) => ((hash << 5) - hash + b) | 0, 0)
+      .toString(16);
+  }
+
+  // Add a block to blockchain
+  async pushBlock(payload, source = "SYSTEM", target = "KERNEL") {
+    const previousHash = this.blockchainQueue.length
+      ? this.blockchainQueue[this.blockchainQueue.length - 1].hash
+      : "0".repeat(64);
+    const timestamp = Date.now();
+    const blockId = this.totalBlocks + 1;
+    const blockContent = `${JSON.stringify(payload)}-${source}-${target}-${previousHash}-${timestamp}`;
+    const blockHash = this.hash(blockContent);
+
+    const block = { blockId, payload, source, target, previousHash, timestamp, hash: blockHash };
+    this.blockchainQueue.push(block);
+    this.auditLog.push(`BLOCK#${blockId}: ${source} -> ${target} | Data: ${JSON.stringify(payload)}`);
+    this.totalBlocks++;
+  }
+
+  // Register new node
+  registerNode(nodeId) {
+    if (!this.nodes[nodeId]) {
+      this.nodes[nodeId] = { status: "active", processed: 0 };
+      this.auditLog.push(`New node registered: ${nodeId}`);
+    }
+  }
+
+  // Register model
+  registerModel(modelId, description, processFunction) {
+    this.models[modelId] = { description, jobs: 0, process: processFunction };
+    this.auditLog.push(`Model registered: ${modelId} (${description})`);
+  }
+
+  // Process user input
+  async processInput(input) {
+    const defaultModel = Object.keys(this.models)[0];
+    const model = this.models[defaultModel];
+    const output = [model.process(input)];
+    
+    // Add to blockchain
+    await this.pushBlock({ input, output }, 'LocalNode', defaultModel);
+    return output[0];
+  }
+
+  // Add message to chat history
+  addToHistory(role, content) {
+    this.chatHistory.push({ role, content });
+    addHistoryItem(content);
+  }
+}
+
+// Initialize central chat system
+const chatCentral = new ChatCentral();
+chatCentral.registerNode('LocalNode');
+
+// Register medical model
+chatCentral.registerModel('Medical-Model', 'Medical Assistant', (input) => {
+  const responses = {
+    // English common symptoms
+         // Common Symptoms in English
         headache: "Try resting, drinking water, and taking a mild pain reliever.",
   fever: "Consider taking an antipyretic and resting. If the fever persists, consult a doctor.",
   cough: "Cough can be a symptom of various conditions. If it persists, seek medical attention.",
@@ -436,6 +538,69 @@
       "pneumonia": "Se você tiver tosse persistente, febre e falta de ar, pode ter pneumonia. Procure ajuda médica imediatamente.",
       "diabetic coma": "O coma diabético é uma emergência. Se você tiver alta glicose no sangue, dificuldade para respirar ou confusão, procure ajuda médica imediatamente.",
     };
+  
+  return responses[input.toLowerCase()] || "Sorry, I don't have a ready answer for that. You might want to see a doctor!";
+});
+
+// Send message
+async function sendMessage() {
+  const text = userInput.value.trim();
+  if (!text) return;
+
+  addMessage('user', text);
+  chatCentral.addToHistory('user', text);
+
+  userInput.value = '';
+  scrollToBottom();
+
+  const typingElement = document.createElement('div');
+  typingElement.className = 'message bot';
+  typingElement.textContent = '...';
+  chatBody.appendChild(typingElement);
+  scrollToBottom();
+
+  const botResponse = await chatCentral.processInput(text);
+
+  chatBody.removeChild(typingElement);
+  addMessage('bot', botResponse);
+  chatCentral.addToHistory('bot', botResponse);
+  scrollToBottom();
+}
+
+// Append message to chat
+function addMessage(role, content) {
+  const msg = document.createElement('div');
+  msg.className = 'message ' + role;
+  msg.textContent = content;
+  chatBody.appendChild(msg);
+}
+
+// Add item to history list
+function addHistoryItem(content) {
+  const item = document.createElement('div');
+  item.className = 'history-item';
+  item.textContent = content;
+  item.onclick = () => loadHistory(content);
+  historyList.appendChild(item);
+}
+
+// Load history item into input
+function loadHistory(content) {
+  userInput.value = content;
+  userInput.focus();
+}
+
+// Scroll chat to bottom
+function scrollToBottom() {
+  chatBody.scrollTop = chatBody.scrollHeight;
+}
+
+// Allow Enter key to send
+userInput.addEventListener('keypress', (e) => {
+  if (e.key === 'Enter') sendMessage();
+});
+</script>
+
     return responses[input.toLowerCase()] || "Sorry, I don't have a ready answer for that. You might want to see a doctor!";
   });
 
