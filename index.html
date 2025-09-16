@@ -158,6 +158,7 @@ footer {
 </style>
 </head>
 <body>
+<body>
 
 <div class="chat-container">
   <div class="chat-header">Arceus</div>
@@ -174,11 +175,14 @@ footer {
 
 <footer>BRNC GRUP AI ®</footer>
 
+<!-- Font Awesome para ícones -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
 <script>
 const chatBody = document.getElementById('chatBody');
 const userInput = document.getElementById('userInput');
 
-// Funções de chat
+// Funções básicas
 function addMessage(role, content) {
   const msg = document.createElement('div');
   msg.className = 'message ' + role;
@@ -191,7 +195,6 @@ function clearChat() {
   chatBody.innerHTML = '';
 }
 
-// Solicitação de atendimento médico
 function requestMedicalHelp() {
   userInput.value = "Preciso de atendimento médico!";
   sendMessage();
@@ -221,9 +224,9 @@ class ChatCentral {
 
 const chatCentral = new ChatCentral();
 
-// Lista de respostas médicas
+// Respostas médicas
 const healthResponses = {
-     "headache": "You can try resting, drinking water, and taking a mild pain reliever.",
+\ "headache": "You can try resting, drinking water, and taking a mild pain reliever.",
   "fever": "Consider taking an antipyretic and resting. If the fever persists, consult a doctor.",
   "cough": "Cough can be a symptom of various conditions. If it persists, seek medical attention.",
   "nausea": "Try drinking small sips of liquid and resting. If it persists, consult a doctor.",
@@ -305,7 +308,8 @@ const healthResponses = {
   "depressão": "Se você está se sentindo constantemente triste ou desmotivado, é importante procurar ajuda de um profissional de saúde mental.",
   "hipotireoidismo": "Procure um endocrinologista para o tratamento adequado. O uso de medicamentos pode ser necessário."
 };
-// Modelo de IA médica
+
+// Registro do modelo
 chatCentral.registerModel('Medical-Model', 'Medical Assistant', (input) => {
   const lowerInput = input.toLowerCase();
   for (const symptom in healthResponses) {
@@ -316,27 +320,31 @@ chatCentral.registerModel('Medical-Model', 'Medical Assistant', (input) => {
   return "Desculpe, não encontrei uma resposta específica. Recomendo consultar um médico.";
 });
 
+// Função principal de envio de mensagem
 async function sendMessage() {
   const text = userInput.value.trim();
   if (!text) return;
 
+  // Mensagem do usuário
   addMessage('user', text);
   chatCentral.addToHistory('user', text);
   userInput.value = '';
 
+  // Indicador de digitação
   const typingElement = document.createElement('div');
   typingElement.className = 'message bot';
   typingElement.textContent = '...';
   chatBody.appendChild(typingElement);
   chatBody.scrollTop = chatBody.scrollHeight;
 
+  // Obter resposta do modelo
   const botResponse = await chatCentral.processInput(text);
 
   chatBody.removeChild(typingElement);
   addMessage('bot', botResponse);
   chatCentral.addToHistory('bot', botResponse);
 
-  // Envio para kernel blockchain
+  // Envio para kernel blockchain (se disponível)
   try {
     await fetch("http://localhost:3000/block/register", {
       method: "POST",
@@ -353,7 +361,7 @@ async function sendMessage() {
   }
 }
 
-// Enviar com Enter
+// Envio ao pressionar Enter
 userInput.addEventListener('keypress', (e) => {
   if (e.key === 'Enter') {
     e.preventDefault();
@@ -365,6 +373,5 @@ userInput.addEventListener('keypress', (e) => {
 addMessage('bot', "Hello! I am Arceus AI, how can I assist you today?");
 chatCentral.addToHistory('bot', "Hello! I am Arceus AI, how can I assist you today?");
 </script>
-
 </body>
 </html>
