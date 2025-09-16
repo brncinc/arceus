@@ -151,21 +151,23 @@ footer {
 </style>
 </head>
 <body>
-<div class="main-container">
-  <div class="sidebar">
-    <h2></h2>
-    <div id="historyList"></div>
-  </div>
-
   <div class="chat-container">
-    <div class="chat-header">Arceus</div>
-    <div class="chat-body" id="chatBody"></div>
-    <div class="chat-input">
-      <input type="text" id="userInput" placeholder="Type your message...">
-      <button onclick="sendMessage()">Send</button>
-    </div>
+  <div class="chat-header">Arceus</div>
+  <div class="chat-body" id="chatBody"></div>
+  <div class="chat-input">
+    <input type="text" id="userInput" placeholder="Type your message...">
+    <button onclick="sendMessage()">Send</button>
+    <button onclick="clearChat()" style="background-color: orange; color: white; border: none; padding: 8px 12px; margin-left: 5px; cursor: pointer; border-radius: 5px;">
+      Clear
+    </button>
   </div>
 </div>
+
+<script>
+  function clearChat() {
+    document.getElementById('chatBody').innerHTML = "";
+  }
+</script>
 
 <footer>BRNC GRUP AI ®</footer>
 
