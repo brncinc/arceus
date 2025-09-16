@@ -160,6 +160,23 @@ footer {
     <button onclick="clearChat()" style="background-color: orange; color: white; border: none; padding: 8px 12px; margin-left: 5px; cursor: pointer; border-radius: 5px;">
       Clear
     </button>
+    <!-- Botão roxo de solicitar atendimento médico -->
+<button onclick="requestMedicalHelp()" 
+        style="background-color: #6a0dad; color: white; border: none; padding: 8px 12px; margin-left: 5px; cursor: pointer; border-radius: 5px; display: flex; align-items: center;">
+  <i class="fas fa-user-md" style="margin-right: 5px;"></i> Atender
+</button>
+
+<!-- Font Awesome CDN (necessário para o ícone) -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<script>
+  function requestMedicalHelp() {
+    const text = "Preciso de atendimento médico!";
+    userInput.value = text;
+    sendMessage();
+  }
+</script>
+
   </div>
 </div>
 
