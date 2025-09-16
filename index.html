@@ -223,14 +223,42 @@
 
 <footer>BRNC GRUP AI ®</footer>
 <script>
+// Elementos
 const chatBody = document.getElementById('chatBody');
 const userInput = document.getElementById('userInput');
 const historyList = document.getElementById('historyList');
 
+// Histórico do chat
 let chatHistory = [
   { role: 'bot', content: "Hello! I am Arceus AI, how can I assist you today?" }
 ];
 
+// Funções auxiliares
+function addMessage(role, content) {
+  const msg = document.createElement('div');
+  msg.className = 'message ' + role;
+  msg.textContent = content;
+  chatBody.appendChild(msg);
+}
+
+function addHistoryItem(content) {
+  const item = document.createElement('div');
+  item.className = 'history-item';
+  item.textContent = content;
+  item.onclick = () => loadHistory(content);
+  historyList.appendChild(item);
+}
+
+function loadHistory(content) {
+  userInput.value = content;
+  userInput.focus();
+}
+
+function scrollToBottom() {
+  chatBody.scrollTop = chatBody.scrollHeight;
+}
+
+// Classe central do chat
 class ChatCentral {
   constructor() {
     this.chatHistory = chatHistory;
@@ -277,9 +305,9 @@ class ChatCentral {
   async processInput(input) {
     const defaultModel = Object.keys(this.models)[0];
     const model = this.models[defaultModel];
-    const output = [model.process(input)];
+    const output = model.process(input);
     await this.pushBlock({ input, output }, 'LocalNode', defaultModel);
-    return output[0];
+    return output;
   }
 
   addToHistory(role, content) {
@@ -288,11 +316,11 @@ class ChatCentral {
   }
 }
 
-// Initialize
+// Inicialização do chat
 const chatCentral = new ChatCentral();
 chatCentral.registerNode('LocalNode');
 
-// Unified health responses
+// Respostas em inglês e português
 const healthResponses = {
 // Common Symptoms - English
     headache: "Try resting, drinking water, and taking a mild pain reliever.",
@@ -582,12 +610,13 @@ const healthResponses = {
     ataqueCardiaco: "Um ataque cardíaco é uma emergência. Se você sentir dor no peito, falta de ar ou dor irradiando para o braço ou mandíbula, procure ajuda imediatamente.",
     insuficienciaRenal: "Se você tiver dificuldade para urinar ou dor nas costas, pode ter insuficiência renal. Procure um nefrologista imediatamente."
   };
-// Register model
+
+// Registro do modelo
 chatCentral.registerModel('Medical-Model', 'Medical Assistant', (input) => {
   return healthResponses[input.toLowerCase()] || "Sorry, I don't have a ready answer for that. Consider consulting a doctor!";
 });
 
-// Send message
+// Envio da mensagem
 async function sendMessage() {
   const text = userInput.value.trim();
   if (!text) return;
@@ -611,34 +640,18 @@ async function sendMessage() {
   scrollToBottom();
 }
 
-// Helper functions
-function addMessage(role, content) {
-  const msg = document.createElement('div');
-  msg.className = 'message ' + role;
-  msg.textContent = content;
-  chatBody.appendChild(msg);
-}
-
-function addHistoryItem(content) {
-  const item = document.createElement('div');
-  item.className = 'history-item';
-  item.textContent = content;
-  item.onclick = () => loadHistory(content);
-  historyList.appendChild(item);
-}
-
-function loadHistory(content) {
-  userInput.value = content;
-  userInput.focus();
-}
-
-function scrollToBottom() {
-  chatBody.scrollTop = chatBody.scrollHeight;
-}
-
+// Evento Enter
 userInput.addEventListener('keypress', (e) => {
-  if (e.key === 'Enter') sendMessage();
+  if (e.key === 'Enter') {
+    e.preventDefault();
+    sendMessage();
+  }
 });
+
+// Mensagem inicial
+addMessage('bot', chatHistory[0].content);
+addHistoryItem(chatHistory[0].content);
+scrollToBottom();
 </script>
 
 
