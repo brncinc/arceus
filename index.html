@@ -2,9 +2,11 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<link rel="icon" href="a.jpeg" />
+<link rel="icon" href="a.jpeg">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Arceus</title>
+<!-- Font Awesome para ícones -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
 
@@ -71,7 +73,7 @@ body {
   flex-direction: column;
   gap: 10px;
   scroll-behavior: smooth;
-  padding-bottom: 50px;
+  padding-bottom: 70px;
 }
 .message {
   padding: 12px 20px;
@@ -105,6 +107,7 @@ body {
   background-color: #1f2a3d;
   padding: 10px;
   border-top: 1px solid #333;
+  gap: 5px;
 }
 .chat-input input {
   flex: 1;
@@ -119,16 +122,20 @@ body {
 .chat-input input:focus { background-color: #2c3e50; }
 .chat-input button {
   padding: 12px 20px;
-  background-color: #00bcd4;
   border: none;
   color: #fff;
   font-weight: bold;
   cursor: pointer;
   border-radius: 20px;
-  margin-left: 10px;
   transition: background-color 0.2s;
 }
-.chat-input button:hover { background-color: #008c9e; }
+.chat-input button.send { background-color: #00bcd4; }
+.chat-input button.send:hover { background-color: #008c9e; }
+.chat-input button.clear { background-color: orange; }
+.chat-input button.clear:hover { background-color: #e69500; }
+.chat-input button.medical { background-color: #6a0dad; display: flex; align-items: center; }
+.chat-input button.medical i { margin-right: 5px; }
+.chat-input button.medical:hover { background-color: #5a0099; }
 
 footer {
   background-color: #002f6c;
@@ -151,40 +158,27 @@ footer {
 </style>
 </head>
 <body>
-  <div class="chat-container">
+
+<div class="chat-container">
   <div class="chat-header">Arceus</div>
   <div class="chat-body" id="chatBody"></div>
   <div class="chat-input">
     <input type="text" id="userInput" placeholder="Type your message...">
-    <button onclick="sendMessage()">Send</button>
-    <button onclick="clearChat()" style="background-color: orange; color: white; border: none; padding: 8px 12px; margin-left: 5px; cursor: pointer; border-radius: 5px;">
-      Clear
+    <button class="send" onclick="sendMessage()">Send</button>
+    <button class="clear" onclick="clearChat()">Clear</button>
+    <button class="medical" onclick="requestMedicalHelp()">
+      <i class="fas fa-user-md"></i> Atender
     </button>
-    <!-- Botão roxo de solicitar atendimento médico -->
-<button onclick="requestMedicalHelp()" 
-        style="background-color: #6a0dad; color: white; border: none; padding: 8px 12px; margin-left: 5px; cursor: pointer; border-radius: 5px; display: flex; align-items: center;">
-  <i class="fas fa-user-md" style="margin-right: 5px;"></i> Atender
-</button>
-
-<!-- Font Awesome CDN (necessário para o ícone) -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-<script>
-  function requestMedicalHelp() {
-    const text = "Preciso de atendimento médico!";
-    userInput.value = text;
-    sendMessage();
-  }
-</script>
-
   </div>
 </div>
+
+<footer>BRNC GRUP AI ®</footer>
 
 <script>
 const chatBody = document.getElementById('chatBody');
 const userInput = document.getElementById('userInput');
-const historyList = document.getElementById('historyList');
 
+// Funções de chat
 function addMessage(role, content) {
   const msg = document.createElement('div');
   msg.className = 'message ' + role;
@@ -193,17 +187,17 @@ function addMessage(role, content) {
   chatBody.scrollTop = chatBody.scrollHeight;
 }
 
-function addHistoryItem(content) {
-  const item = document.createElement('div');
-  item.className = 'history-item';
-  item.textContent = content;
-  item.onclick = () => { 
-    userInput.value = content.split(": ").slice(1).join(": "); 
-    userInput.focus(); 
-  };
-  historyList.appendChild(item);
+function clearChat() {
+  chatBody.innerHTML = '';
 }
 
+// Solicitação de atendimento médico
+function requestMedicalHelp() {
+  userInput.value = "Preciso de atendimento médico!";
+  sendMessage();
+}
+
+// ChatCentral: histórico e modelos
 class ChatCentral {
   constructor() {
     this.chatHistory = [];
@@ -217,13 +211,11 @@ class ChatCentral {
   async processInput(input) {
     const modelKey = Object.keys(this.models)[0];
     if (!modelKey) return "No model registered.";
-    const model = this.models[modelKey];
-    return model.process(input);
+    return this.models[modelKey].process(input);
   }
 
   addToHistory(role, content) {
     this.chatHistory.push({ role, content });
-    addHistoryItem(role + ": " + content);
   }
 }
 
@@ -231,7 +223,7 @@ const chatCentral = new ChatCentral();
 
 // Lista de respostas médicas
 const healthResponses = {
-   "headache": "You can try resting, drinking water, and taking a mild pain reliever.",
+     "headache": "You can try resting, drinking water, and taking a mild pain reliever.",
   "fever": "Consider taking an antipyretic and resting. If the fever persists, consult a doctor.",
   "cough": "Cough can be a symptom of various conditions. If it persists, seek medical attention.",
   "nausea": "Try drinking small sips of liquid and resting. If it persists, consult a doctor.",
@@ -313,27 +305,16 @@ const healthResponses = {
   "depressão": "Se você está se sentindo constantemente triste ou desmotivado, é importante procurar ajuda de um profissional de saúde mental.",
   "hipotireoidismo": "Procure um endocrinologista para o tratamento adequado. O uso de medicamentos pode ser necessário."
 };
-  "hipotireoidismo": "Procure um endocrinologista para o tratamento adequado. O uso de medicamentos pode ser necessário."
-};
-
-// Modelo sempre retorna alguma resposta
+// Modelo de IA médica
 chatCentral.registerModel('Medical-Model', 'Medical Assistant', (input) => {
   const lowerInput = input.toLowerCase();
-
-  // Busca parcial: retorna a primeira correspondência encontrada
   for (const symptom in healthResponses) {
     if (lowerInput.includes(symptom.toLowerCase())) {
       return healthResponses[symptom];
     }
   }
-
-  // Resposta padrão se nada corresponder
-  return "Desculpe, não encontrei uma resposta específica. Recomendo consultar um médico para orientação adequada.";
+  return "Desculpe, não encontrei uma resposta específica. Recomendo consultar um médico.";
 });
-
-function scrollToBottom() {
-  chatBody.scrollTop = chatBody.scrollHeight;
-}
 
 async function sendMessage() {
   const text = userInput.value.trim();
@@ -342,22 +323,20 @@ async function sendMessage() {
   addMessage('user', text);
   chatCentral.addToHistory('user', text);
   userInput.value = '';
-  scrollToBottom();
 
   const typingElement = document.createElement('div');
   typingElement.className = 'message bot';
   typingElement.textContent = '...';
   chatBody.appendChild(typingElement);
-  scrollToBottom();
+  chatBody.scrollTop = chatBody.scrollHeight;
 
   const botResponse = await chatCentral.processInput(text);
 
   chatBody.removeChild(typingElement);
   addMessage('bot', botResponse);
   chatCentral.addToHistory('bot', botResponse);
-  scrollToBottom();
 
-  // 🔗 Enviar para o kernel blockchain
+  // Envio para kernel blockchain
   try {
     await fetch("http://localhost:3000/block/register", {
       method: "POST",
@@ -374,15 +353,18 @@ async function sendMessage() {
   }
 }
 
-// Enter key envia mensagem
+// Enviar com Enter
 userInput.addEventListener('keypress', (e) => {
-  if (e.key === 'Enter') { e.preventDefault(); sendMessage(); }
+  if (e.key === 'Enter') {
+    e.preventDefault();
+    sendMessage();
+  }
 });
 
 // Mensagem inicial
 addMessage('bot', "Hello! I am Arceus AI, how can I assist you today?");
 chatCentral.addToHistory('bot', "Hello! I am Arceus AI, how can I assist you today?");
-scrollToBottom();
 </script>
+
 </body>
 </html>
