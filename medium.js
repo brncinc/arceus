@@ -1,49 +1,42 @@
 const healthResponses = {
 
  
-  // Sintomas respiratórios
-  "sore throat": "Gargle with warm salt water and drink fluids. Lozenges can help. If it worsens or lasts more than a few days, consult a doctor.",
-  "runny nose": "Stay hydrated and consider using saline nasal spray. If symptoms persist, consult a doctor.",
-  "shortness of breath": "If mild, rest and practice deep breathing. If sudden, severe, or persistent, seek emergency medical care.",
-  "chest pain": "Chest pain can be serious. If sharp, heavy, or radiating, call emergency services immediately.",
+ "cough": "Stay hydrated, rest, and monitor symptoms. Seek medical care if persistent, severe, or with blood.",
+"wheezing": "Sit upright, practice slow breathing. Seek urgent care if severe or sudden.",
+"nasal congestion": "Use saline spray, stay hydrated. Seek care if prolonged or with high fever.",
+"hoarseness": "Rest voice, stay hydrated. Consult a doctor if persistent for more than 2 weeks.",
+"sinus pressure": "Apply warm compresses, stay hydrated. Seek care if pain severe or accompanied by fever.",
 
-  // Sintomas neurológicos
-  "dizziness": "Sit or lie down immediately. Drink water. If recurrent or accompanied by fainting, consult a doctor.",
-  "fainting": "Lay the person flat and elevate their legs. Seek medical evaluation after fainting.",
-  "seizure": "Ensure safety by moving objects away. Do not restrain the person. Seek emergency medical help.",
+// Sintomas neurológicos
+"headache": "Rest, hydrate, consider over-the-counter pain relief. Seek care if severe, sudden, or with vision changes.",
+"memory loss": "Keep notes, rest, reduce stress. Seek care if frequent or worsening.",
+"confusion": "Ensure safety, monitor closely. Seek urgent care if sudden or severe.",
+"tremors": "Rest, reduce stress, consult doctor if persistent or worsening.",
+"loss of coordination": "Avoid risky activities, seek medical evaluation if persistent.",
 
-  // Sintomas psicológicos
-  "anxiety": "Practice deep breathing, meditation, or light exercise. If persistent, consult a mental health professional.",
-  "depression": "Talk to someone you trust. Seek professional support. If experiencing suicidal thoughts, seek help immediately.",
+// Sintomas psicológicos
+"stress": "Practice relaxation techniques, exercise, maintain social support. Seek professional help if overwhelming.",
+"panic attacks": "Practice controlled breathing, find a safe environment. Seek mental health support if frequent.",
+"mood swings": "Track triggers, maintain routine. Consult mental health professional if disruptive.",
+"irritability": "Stress management, adequate sleep. Seek help if persistent and affecting daily life.",
+"apathy": "Engage in activities, social interactions. Seek professional support if prolonged.",
 
-  // Sintomas dermatológicos
-  "rash": "Keep the area clean and avoid scratching. If spreading, painful, or associated with fever, seek medical care.",
-  "itching": "Apply cool compresses or use antihistamine creams. If persistent, consult a dermatologist.",
-  "burn": "Cool the burn under running water. Do not apply ice. For severe burns, seek emergency care.",
+// Sintomas dermatológicos
+"dry skin": "Moisturize, hydrate, avoid hot showers. Seek dermatologist if persistent or itchy.",
+"blisters": "Keep clean, avoid popping. Seek care if infected or painful.",
+"eczema": "Moisturize, avoid irritants. Consult dermatologist if persistent or worsening.",
+"hives": "Avoid triggers, use antihistamines. Seek urgent care if swelling or breathing difficulty.",
+"acne": "Keep skin clean, avoid harsh scrubbing. Seek dermatologist if severe or cystic.",
 
-  // Outros
-  "stomach ache": "Rest, drink water, and eat bland foods. If severe or persistent, seek medical advice.",
-  "diarrhea": "Drink fluids with electrolytes to prevent dehydration. If it lasts more than 2 days or has blood, consult a doctor.",
-  "constipation": "Increase fiber intake, drink water, and exercise. If persistent, consult a healthcare professional.",
-  "fatigue": "Rest, maintain hydration, and eat balanced meals. If persistent, consult a doctor.",
-  "insomnia": "Keep a regular sleep schedule, avoid caffeine before bedtime, and create a calming environment.",
-  "vomiting": "Rest and sip small amounts of fluids. If severe, frequent, or with blood, seek medical care.",
-  "ear pain": "Keep the ear dry and avoid inserting objects. If persistent or severe, consult a doctor.",
-  "eye pain": "Rest your eyes, avoid screens. If accompanied by vision loss, seek urgent care."
- 
-  // Sintomas neurológicos
-  "dizziness": "Sit or lie down immediately. Drink water. If recurrent or accompanied by fainting, consult a doctor.",
-  "fainting": "Lay the person flat and elevate their legs. Seek medical evaluation after fainting.",
-  "seizure": "Ensure safety by moving objects away. Do not restrain the person. Seek emergency medical help.",
-
-  // Sintomas psicológicos
-  "anxiety": "Practice deep breathing, meditation, or light exercise. If persistent, consult a mental health professional.",
-  "depression": "Talk to someone you trust. Seek professional support. If experiencing suicidal thoughts, seek help immediately.",
-
-  // Sintomas dermatológicos
-  "rash": "Keep the area clean and avoid scratching. If spreading, painful, or associated with fever, seek medical care.",
-  "itching": "Apply cool compresses or use antihistamine creams. If persistent, consult a dermatologist.",
-  "burn": "Cool the burn under running water. Do not apply ice. For severe burns, seek emergency care.",
+// Outros sintomas
+"nausea": "Sip fluids, eat bland foods, rest. Seek care if persistent or with vomiting.",
+"loss of appetite": "Small, frequent meals, stay hydrated. Seek care if prolonged or severe.",
+"weight changes": "Track diet, monitor activity. Consult doctor if rapid or unexplained.",
+"joint pain": "Rest, apply heat or cold, gentle movement. Seek care if persistent or swollen.",
+"back pain": "Maintain posture, gentle stretching. Seek care if severe, radiating, or with numbness.",
+"fever": "Rest, hydrate, monitor temperature. Seek care if high or persistent.",
+"chills": "Keep warm, rest. Seek care if accompanied by high fever or infection signs.",
+"muscle aches": "Rest, gentle stretching, hydrate. Seek care if sudden or severe."
 
   // Outros
   "stomach ache": "Rest, drink water, and eat bland foods. If severe or persistent, seek medical advice.",
@@ -185,6 +178,151 @@ const healthResponses = {
   "eye pain": "Rest eyes, avoid screens. Seek urgent care if vision changes.",
   "blurred vision": "Rest eyes, check prescription, consult ophthalmologist if persists.",
   "red eye": "Avoid rubbing, consult doctor if painful or with discharge.",
+ "cough": "Stay hydrated, rest, and monitor symptoms. Seek medical care if persistent or severe.",
+  "sore throat": "Gargle with warm salt water, drink fluids, use lozenges. See a doctor if persistent.",
+  "runny nose": "Use saline spray, stay hydrated, rest. Consult doctor if persists.",
+  "shortness of breath": "Rest and practice deep breathing. Seek emergency care if severe or sudden.",
+  "chest pain": "Can be serious. Call emergency services immediately if sharp or radiating.",
+  "wheezing": "Sit upright, practice slow breathing. Seek urgent care if severe.",
+  "hoarseness": "Rest voice, hydrate. See ENT if persists.",
+  "nasal congestion": "Saline spray, rest. Consult doctor if severe.",
+  
+  // Sintomas neurológicos
+  "dizziness": "Sit or lie down. Drink water. Consult a doctor if recurrent.",
+  "fainting": "Lay flat and elevate legs. Seek evaluation after fainting.",
+  "seizure": "Ensure safety, do not restrain. Seek emergency help.",
+  "headache": "Rest, hydrate, use mild pain relievers. Consult doctor if frequent or severe.",
+  "confusion": "Monitor and seek medical attention immediately.",
+  "memory loss": "Keep notes, rest, reduce stress. Consult doctor if persistent.",
+  "tremors": "Rest, reduce stress, consult doctor if persistent or worsening.",
+  
+  // Sintomas psicológicos
+  "anxiety": "Practice deep breathing, meditation, light exercise. Seek mental health support if persistent.",
+  "depression": "Talk to someone trusted. Seek professional support. If suicidal thoughts, seek help immediately.",
+  "stress": "Relaxation techniques, proper rest. Consult professional if severe.",
+  "insomnia": "Maintain sleep schedule, avoid caffeine, create a calm environment.",
+  "mood swings": "Monitor symptoms and seek professional support if persistent.",
+  "panic attacks": "Controlled breathing, safe environment. Seek mental health support if frequent.",
+  
+  // Sintomas dermatológicos
+  "rash": "Keep clean, avoid scratching. Seek medical care if spreading or painful.",
+  "itching": "Apply cool compresses or antihistamine cream. Consult dermatologist if persistent.",
+  "burn": "Cool under running water. Do not apply ice. Seek emergency care if severe.",
+  "blisters": "Keep clean, avoid popping. Consult doctor if infected.",
+  "eczema": "Moisturize and avoid irritants. Seek dermatology care if persistent.",
+  "hives": "Avoid triggers, use antihistamines. Seek urgent care if swelling or breathing difficulty.",
+  
+  // Sintomas digestivos
+  "stomach ache": "Rest, hydrate, eat bland foods. Seek care if severe or persistent.",
+  "nausea": "Sip fluids and rest. Consult doctor if persistent or severe.",
+  "vomiting": "Small sips of fluids. Seek care if severe, frequent, or bloody.",
+  "diarrhea": "Drink fluids with electrolytes. Seek care if persists or blood present.",
+  "constipation": "Increase fiber, hydrate, exercise. Seek care if persistent.",
+  "bloating": "Light meals, hydrate, gentle activity. Consult doctor if persistent.",
+  "heartburn": "Avoid spicy/fatty foods, elevate head when lying down. Seek care if severe or frequent.",
+  
+  // Sintomas urinários e reprodutivos
+  "painful urination": "Hydrate, avoid irritants. Seek urology evaluation if persistent.",
+  "frequent urination": "Monitor fluid intake. Consult doctor if persistent or painful.",
+  "blood in urine": "Seek medical attention promptly.",
+  "urinary retention": "Do not strain. Seek urgent urology care.",
+  "flank pain": "Rest and hydrate. Seek medical attention if severe.",
+  "pelvic pain": "Monitor symptoms, consult gynecologist or urologist if persistent.",
+  "irregular menstruation": "Track cycles, consult gynecologist if abnormal.",
+  "vaginal discharge": "Maintain hygiene, consult gynecologist if unusual.",
+  "erectile dysfunction": "Consult healthcare provider for evaluation.",
+  "infertility": "Seek specialist evaluation after prolonged attempts.",
+  "dry eyes": "Use lubricating eye drops, avoid prolonged screen time. Consult ophthalmologist if persistent.",
+  "eye redness": "Avoid rubbing, apply cold compress. Seek care if painful or with discharge.",
+  "double vision": "Rest, avoid strain. Seek urgent ophthalmology evaluation.",
+  "eye floaters": "Monitor, consult ophthalmologist if sudden increase or vision loss.",
+  "eye swelling": "Cold compress, avoid rubbing. Seek medical care if persistent or painful.",
+  
+  // Sintomas otológicos (ouvidos)
+  "ringing in ears": "Avoid loud noise, rest. Consult ENT if persistent.",
+  "ear fullness": "Swallow, yawn, avoid inserting objects. Seek ENT care if persistent.",
+  "ear discharge": "Keep ear clean and dry. Seek immediate medical attention.",
+  "hearing difficulty": "Avoid loud environments, consult audiologist or ENT if persistent.",
+  
+  // Sintomas gastrointestinais avançados
+  "acid reflux": "Eat smaller meals, avoid lying down after eating. Consult doctor if persistent.",
+  "indigestion": "Eat slowly, avoid fatty/spicy foods. Seek care if recurrent or severe.",
+  "blood in stool": "Seek urgent medical evaluation.",
+  "black stool": "Seek urgent medical attention; may indicate bleeding.",
+  "abdominal cramping": "Hydrate, rest, light meals. Consult doctor if persistent or severe.",
+  
+  // Sintomas endocrinológicos/metabólicos
+  "excessive thirst": "Hydrate, monitor. Consult doctor if persistent; could indicate diabetes.",
+  "frequent urination": "Monitor fluids, seek evaluation if persistent or painful.",
+  "unexplained weight change": "Track diet and activity. Consult doctor if rapid or unexplained.",
+  "hair thinning": "Monitor nutrition, hormonal evaluation may be needed.",
+  "fatigue": "Rest, balanced diet, check thyroid function if persistent.",
+  
+  // Sintomas imunológicos/infecciosos
+  "swollen lymph nodes": "Monitor, rest, seek care if painful or persistent.",
+  "persistent fever": "Rest, hydrate, track temperature. Seek care if high or lasting more than 3 days.",
+  "chills": "Keep warm, hydrate. Seek care if accompanied by high fever.",
+  "night sweats": "Light clothing, hydrate. Consult doctor if unexplained or persistent.",
+  "recurrent infections": "Consult doctor for immune system evaluation.",
+  
+  // Sintomas genitourinários específicos
+  "painful intercourse": "Consult gynecologist/urologist if persistent.",
+  "menstrual cramps": "Use heat, rest, over-the-counter pain relief. Seek care if severe.",
+  "frequent UTIs": "Hydrate, maintain hygiene. Consult doctor if recurrent.",
+  "incontinence": "Pelvic floor exercises, consult urologist if persistent.",
+  
+  // Sintomas hematológicos
+  "easy bruising": "Monitor, consult hematologist if frequent or unexplained.",
+  "nosebleeds": "Apply pressure, sit upright. Seek care if recurrent or severe.",
+  "fatigue due to anemia": "Monitor diet, consult doctor for evaluation.",
+  "pale skin": "Monitor, consult doctor if persistent; could indicate anemia.",
+  
+  // Sintomas respiratórios específicos (novos)
+  "wheezing": "Sit upright, practice slow breathing. Seek urgent care if severe.",
+  "stridor": "Seek emergency care immediately.",
+  "persistent cough with blood": "Seek immediate medical evaluation.",
+  "difficulty breathing at night": "Elevate head, seek urgent care if recurrent or severe."
+  // Sintomas musculoesqueléticos
+  "muscle pain": "Rest, gentle stretching, pain relievers as needed.",
+  "joint pain": "Rest, ice/heat, consult doctor if persistent.",
+  "weakness": "Rest and hydrate. Seek evaluation if unexplained.",
+  "stiffness": "Stretch and exercise. Consult professional if severe.",
+  "swelling": "Elevate area, monitor. Seek care if painful or persistent.",
+  
+  // Sintomas cardiovasculares
+  "palpitations": "Rest and monitor. Seek urgent care if chest pain accompanies.",
+  "high blood pressure": "Monitor, lifestyle changes, consult doctor if high readings.",
+  "chest tightness": "Rest, deep breathing. Seek urgent care if severe or sudden.",
+  "cold sweats": "Rest, hydrate. Seek urgent care if accompanied by chest pain or dizziness."
+   "sore throat": "Gargle with warm salt water, hydrate, lozenges may help. Seek care if severe or persistent.",
+  "runny nose": "Use saline spray, keep hydrated. Seek care if fever or thick green discharge.",
+  "congestion": "Steam inhalation, stay hydrated. Seek medical advice if severe or persistent.",
+  "chills": "Keep warm, rest, monitor temperature. Seek care if accompanied by high fever.",
+  "muscle aches": "Rest, gentle stretching, hydration. Seek care if severe or sudden onset.",
+  "swelling": "Elevate affected area, ice packs. Seek care if sudden or painful.",
+  "red eyes": "Avoid rubbing, use artificial tears. Consult doctor if vision changes or pain.",
+  "blurred vision": "Rest eyes, avoid strain. Seek urgent care if sudden or persistent.",
+  "ear pain": "Warm compress, avoid inserting objects. Seek care if persistent or with discharge.",
+  "sore muscles": "Gentle movement, hydration, rest. Seek care if severe or persistent.",
+  "numbness": "Avoid strain, monitor symptoms. Seek urgent care if sudden or spreading.",
+  "tingling": "Stretch, monitor, avoid pressure. Seek care if persistent or worsening.",
+  "palpitations": "Rest, avoid stimulants. Seek care if severe or persistent.",
+  "cold sweats": "Rest, hydrate. Seek urgent care if accompanied by chest pain or dizziness.",
+  "loss of appetite": "Eat small, balanced meals, hydrate. Seek care if prolonged or severe.",
+  "abdominal pain": "Rest, hydrate, eat bland foods. Seek care if severe, persistent, or with fever.",
+  "bloating": "Light meals, hydrate, gentle activity. Seek care if persistent or painful.",
+  "heartburn": "Avoid spicy/fatty foods, elevate head when lying down. Seek care if severe or frequent.",
+  "acid reflux": "Eat smaller meals, avoid lying down after eating. Seek care if persistent.",
+  "leg cramps": "Stretch, hydrate, massage. Seek care if persistent or severe.",
+  "cold hands/feet": "Keep warm, gentle massage. Seek care if persistent or with color changes.",
+  "night sweats": "Light clothing, keep hydrated. Seek care if persistent or unexplained.",
+  "weight gain": "Monitor diet and activity. Consult doctor if rapid or unexplained.",
+  "hair loss": "Maintain nutrition, gentle hair care. Seek care if sudden or patchy.",
+  "dry skin": "Moisturize, hydrate. Seek dermatologist if persistent or itchy.",
+  "chest tightness": "Rest, deep breathing. Seek urgent care if severe or sudden.",
+  "short-term memory loss": "Keep notes, reduce stress. Seek care if frequent or worsening.",
+  "confusion": "Ensure safety, rest. Seek urgent care if sudden or severe.",
+  "swollen lymph nodes": "Monitor, rest. Seek care if painful or persistent."
   "photophobia": "Rest eyes in dark environment. Seek medical advice if severe.",
   "tearing": "Lubricating drops may help. See doctor if persistent.",
   "ear pain": "Keep ear dry, avoid objects. Consult doctor if persistent.",
@@ -208,7 +346,6 @@ const healthResponses = {
  "irregular menstruation": "Track cycles, consult gynecologist if abnormal.",
   "vaginal discharge": "Maintain hygiene, consult gynecologist if unusual.",
   "menstrual cramps": "Use heat therapy, rest, and consider OTC pain relievers.",
-const medicalResponses = {
   // Saúde feminina
   "irregular menstruation": "Track cycles, consult gynecologist if abnormal.",
   "vaginal discharge": "Maintain hygiene, consult gynecologist if unusual.",
@@ -221,31 +358,7 @@ const medicalResponses = {
   "infertility": "Seek specialist evaluation after prolonged attempts.",
   "prostate enlargement (BPH)": "Monitor urinary symptoms, consult urologist for management.",
   "prostatitis": "Seek urologist evaluation, follow prescribed antibiotics or therapy.",
-  
-  // Sintomas gerais
-  "fever": "Rest, hydrate, monitor temperature. Seek medical care if high or persistent.",
-  "fatigue": "Rest, maintain hydration, balanced diet. Consult doctor if persistent.",
-  "malaise": "Monitor symptoms. Seek care if persistent or worsening.",
-  "weight loss": "Track diet and weight. Consult doctor if unintentional or rapid.",
-  "headache": "Rest, hydrate, consider OTC pain relief. Seek care if severe or sudden.",
-  "cough": "Stay hydrated, monitor symptoms. Seek medical attention if persistent or severe.",
-  "shortness of breath": "Rest, practice deep breathing. Seek emergency care if sudden or severe.",
-  "chest pain": "Seek immediate medical care; can indicate serious condition.",
-  "nausea": "Sip fluids, rest, eat bland foods. Seek medical advice if persistent.",
-  "vomiting": "Hydrate, small sips of fluids. Seek care if severe, frequent, or with blood.",
-  "diarrhea": "Drink fluids with electrolytes. Seek care if lasting >2 days or bloody.",
-  "constipation": "Increase fiber, hydrate, exercise. Seek care if persistent.",
-  "rash": "Keep clean, avoid scratching. Seek care if spreading, painful, or with fever.",
-  "itching": "Cool compresses or antihistamine creams. Consult dermatologist if persistent.",
-  "burn": "Cool under running water. Seek emergency care if severe.",
-  "dizziness": "Sit/lie down, hydrate. Seek care if recurrent or with fainting.",
-  "fainting": "Lay flat, elevate legs. Seek medical evaluation after episode.",
-  "seizure": "Ensure safety, do not restrain. Seek emergency care.",
-  "anxiety": "Practice relaxation, meditation. Seek mental health professional if persistent.",
-  "depression": "Talk to someone trusted. Seek professional support if persistent or suicidal thoughts.",
-  "insomnia": "Maintain sleep routine, avoid caffeine, consult doctor if persistent.",
-  "joint pain": "Rest, apply cold/heat, monitor swelling. Seek care if persistent or severe.",
-  "back pain": "Maintain posture, physical therapy, seek care if severe or radiating.",
+ 
   
   // Clínica Médica
   "Hipertensão arterial": "Monitor blood pressure, maintain healthy diet, exercise. Consult doctor if high or persistent.",
@@ -266,6 +379,7 @@ const medicalResponses = {
   "Síndrome de Cushing": "Follow treatment plan, monitor cortisol levels, consult endocrinologist.",
   "Anemia ferropriva": "Increase iron intake, consider supplementation. Monitor hemoglobin levels.",
   "Anemia megaloblástica": "Supplement with B12 or folate. Monitor blood counts.",
+ 
 
   // Cardiologia
   "Arritmias cardíacas": "Monitor heart rate, report palpitations or dizziness to doctor.",
@@ -304,7 +418,97 @@ const medicalResponses = {
   "Doença de Hashimoto": "Monitor thyroid function, take prescribed medication, follow up regularly.",
   "Nódulo tireoidiano": "Monitor size, imaging and biopsy if recommended by endocrinologist.",
   "Câncer de tireoide": "Follow surgical and oncological treatment plan, monitor follow-up."
-
+{
+  // Sintomas oftalmológicos adicionais
+  "eye itching": "Apply cool compresses, lubricating drops. Seek ophthalmologist if persistent.",
+  "eye discharge": "Keep eyes clean, avoid rubbing. Seek care if yellow/green or painful.",
+  "sensitivity to light": "Rest in a dark environment. Seek care if severe or sudden.",
+  "eye pain with headache": "Rest, hydrate. Consult ophthalmologist if persistent or severe.",
+  "swollen eyelids": "Cold compress, avoid rubbing. See doctor if painful or persistent.",
+  
+  // Sintomas otológicos adicionais
+  "ear pain with fever": "Keep ear dry, take acetaminophen if needed. Seek urgent care if severe.",
+  "sudden hearing loss": "Seek ENT evaluation immediately.",
+  "itchy ears": "Avoid scratching, keep dry. Consult ENT if persistent.",
+  "vertigo": "Sit or lie down, hydrate. Seek ENT if recurrent or severe.",
+  "ear popping": "Swallow, yawn, avoid pressure changes. Consult ENT if persistent.",
+  
+  // Sintomas gastrointestinais adicionais
+  "vomiting blood": "Seek emergency care immediately.",
+  "severe abdominal pain": "Rest, avoid food. Seek urgent medical evaluation.",
+  "bloating with nausea": "Hydrate, light meals. Consult doctor if persistent.",
+  "persistent diarrhea": "Hydrate, oral rehydration solutions. Seek care if lasting >3 days.",
+  "loss of appetite with weight loss": "Track meals, seek care if unexplained.",
+  
+  // Sintomas endocrinológicos/metabólicos adicionais
+  "sudden weight gain": "Monitor diet and activity. Consult doctor if rapid or unexplained.",
+  "cold intolerance": "Dress warmly, check thyroid function if persistent.",
+  "heat intolerance": "Stay cool, consult endocrinologist if persistent.",
+  "frequent sweating": "Hydrate, monitor. Seek care if excessive or unexplained.",
+  "hair loss with fatigue": "Check nutrition and hormonal levels. Consult doctor.",
+  
+  // Sintomas imunológicos/infecciosos adicionais
+  "persistent sore throat": "Hydrate, rest. Consult doctor if lasting >1 week or severe.",
+  "skin infections": "Keep area clean, seek medical care if spreading or painful.",
+  "recurrent fevers": "Monitor temperature, consult doctor for evaluation.",
+  "swollen joints with fever": "Rest, seek care if persistent or severe.",
+  "body aches with fatigue": "Rest, hydrate. Consult doctor if severe or persistent.",
+  
+  // Sintomas genitourinários adicionais
+  "pain in lower back with urination": "Hydrate, rest. Consult urologist if persistent.",
+  "blood in urine with pain": "Seek urgent urology evaluation.",
+  "vaginal itching": "Maintain hygiene, consult gynecologist if persistent.",
+  "irregular ejaculation": "Consult healthcare provider for evaluation.",
+  "urinary urgency": "Monitor fluids, perform bladder training. Consult doctor if persistent.",
+  
+  // Sintomas musculoesqueléticos adicionais
+  "muscle cramps at night": "Stretch before bed, hydrate. Seek care if persistent.",
+  "joint swelling": "Rest, ice, elevate. Consult doctor if painful or persistent.",
+  "back stiffness": "Gentle exercise, maintain posture. Seek care if severe.",
+  "neck pain": "Stretch, avoid strain. Consult doctor if persistent or radiating.",
+  "foot pain": "Rest, ice. Seek podiatrist if persistent.",
+  
+  // Sintomas cardiovasculares adicionais
+  "shortness of breath on exertion": "Rest, monitor. Consult doctor if worsening.",
+  "chest tightness with exertion": "Rest, seek urgent care if severe.",
+  "palpitations with dizziness": "Rest, monitor heart rate. Seek urgent care if persistent.",
+  "fainting with exertion": "Lay flat, seek evaluation immediately.",
+  "swelling of legs": "Elevate legs, monitor. Seek doctor if persistent or painful.",
+  
+  // Sintomas respiratórios adicionais
+  "persistent wheezing": "Sit upright, use inhaler if prescribed. Seek care if severe.",
+  "cough with sputum": "Hydrate, monitor. Consult doctor if colored or bloody.",
+  "shortness of breath at night": "Elevate head, seek urgent care if recurrent.",
+  "nasal bleeding": "Apply pressure, sit upright. Seek urgent care if recurrent or severe.",
+  "chronic sinus pain": "Warm compresses, saline irrigation. Consult ENT if persistent.",
+  
+  // Sintomas dermatológicos adicionais
+  "acne with redness": "Clean skin gently, consult dermatologist if severe.",
+  "skin dryness with cracking": "Moisturize, avoid harsh soaps. Seek dermatologist if persistent.",
+  "itching with rash": "Cool compress, antihistamine creams. Consult doctor if persistent.",
+  "blisters with pain": "Keep area clean, avoid popping. Seek care if infected.",
+  "changes in mole": "Monitor, consult dermatologist immediately if changing size/color.",
+  
+  // Sintomas neurológicos adicionais
+  "trembling hands": "Rest, reduce stress. Consult neurologist if persistent.",
+  "loss of balance": "Ensure safety, seek care if recurrent or severe.",
+  "tingling in limbs": "Stretch, monitor. Consult doctor if persistent or worsening.",
+  "weak grip": "Rest, gentle exercises. Consult neurologist if progressive.",
+  "speech difficulties": "Rest, monitor. Seek urgent care if sudden onset.",
+  
+  // Sintomas psicológicos adicionais
+  "irritability": "Stress management, proper rest. Seek help if persistent.",
+  "apathy": "Engage in activities, social interaction. Seek professional support if prolonged.",
+  "difficulty concentrating": "Rest, reduce distractions. Consult mental health professional if persistent.",
+  "emotional outbursts": "Track triggers, relaxation techniques. Seek professional support if frequent.",
+  "sleep disturbances": "Maintain schedule, avoid caffeine. Seek care if persistent.",
+  
+  // Sintomas hematológicos adicionais
+  "frequent nosebleeds": "Apply pressure, sit upright. Seek doctor if frequent.",
+  "pale lips": "Monitor, consult doctor if persistent; may indicate anemia.",
+  "easy bleeding": "Avoid injuries, consult hematologist if frequent.",
+  "fatigue with pallor": "Rest, check blood counts. Consult doctor.",
+  "bruising easily": "Monitor, seek hematology evaluation if unexplained."
 };// Exporta para Node.js
 if (typeof module !== "undefined") {
   module.exports = healthResponses;
