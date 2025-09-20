@@ -8,6 +8,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body { font-family: 'Roboto', sans-serif; background-color: #0a1d37; color: #fff; height: 100vh; display: flex; flex-direction: column; overflow: hidden; }
 .chat-container { flex: 1; display: flex; flex-direction: column; background-color: #17202a; border-left: 1px solid #333; position: relative; }
@@ -46,8 +47,9 @@ footer { background-color: #002f6c; color: #fff; text-align: center; padding: 10
 </div>
 
 <footer>BRNC GRUP AI ®</footer>
+
 <script>
-// === medium.js incorporado diretamente ===
+// === Biblioteca de respostas médicas ===
 function getMedicalResponse(input) {
   const healthResponses = {
     "headache": "You can try resting, drinking water, and taking a mild pain reliever.",
@@ -80,7 +82,7 @@ function getMedicalResponse(input) {
   return "Desculpe, não encontrei uma resposta específica. Recomendo consultar um médico.";
 }
 
-// === ChatCentral e IRHX ===
+// === Funções do chat ===
 const chatBody = document.getElementById('chatBody');
 const userInput = document.getElementById('userInput');
 
@@ -99,6 +101,7 @@ function requestMedicalHelp() {
   sendMessage();
 }
 
+// === ChatCentral e IRHX ===
 class ChatCentral {
   constructor() {
     this.chatHistory = [];
@@ -149,6 +152,7 @@ userInput.addEventListener('keypress', (e) => {
   if (e.key === 'Enter') { e.preventDefault(); sendMessage(); }
 });
 
+// Mensagem inicial
 addMessage('bot', "Hello! I am Arceus AI, how can I assist you today?");
 chatCentral.addToHistory('bot', "Hello! I am Arceus AI, how can I assist you today?");
 </script>
