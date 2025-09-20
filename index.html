@@ -48,37 +48,22 @@ footer { background-color: #002f6c; color: #fff; text-align: center; padding: 5p
     <button class="send"><i class="fas fa-paper-plane"></i> Send</button>
     <button class="medical"><i class="fas fa-user-md"></i> Atender</button>
     <button class="clear"><i class="fas fa-trash"></i> Clear</button>
-    <button class="save"><i class="fas fa-download"></i> </button>
+    <button class="save"><i class="fas fa-download"></i></button>
   </div>
 </div>
 
 <footer>BRNC GRUP AI ®</footer>
 
+<!-- Importa as respostas médicas externas -->
+<script src="medium.js"></script>
+
 <script>
-// === Respostas médicas ===
+// === Função de respostas médicas usando medium.js ===
 function getMedicalResponse(input) {
-  const responses = {
-    "headache":"You can try resting, drinking water, and taking a mild pain reliever.",
-    "fever":"Consider taking an antipyretic and resting. If persists, consult a doctor.",
-    "cough":"Cough can be a symptom of various conditions. Seek medical attention if persistent.",
-    "nausea":"Drink small sips of liquid and rest. Consult doctor if persists.",
-    "muscle pain":"Light stretching and rest can help alleviate the pain.",
-    "anxiety":"Try deep breathing or meditation. Consult therapist if needed.",
-    "shortness of breath":"Seek medical assistance immediately.",
-    "chest pain":"Consult a doctor immediately, could be an emergency.",
-    "dizziness":"Consult doctor if severe or persistent.",
-    "fatigue":"Rest and seek medical advice if continues.",
-    "insomnia":"Practice relaxation before bed. Consult doctor if persists.",
-    "diarrhea":"Stay hydrated. Consult doctor if persists >2 days.",
-    "constipation":"Increase fiber and water intake. Consult doctor if no improvement.",
-    "vomiting":"Rest and drink fluids slowly. Consult doctor if persists.",
-    "eye irritation":"Avoid rubbing eyes. Consult ophthalmologist if persists.",
-    "allergy":"Avoid allergen, take antihistamine if needed.",
-    "migraine":"Rest in dark room, consult doctor if frequent.",
-    "back pain":"Maintain good posture, apply warm compress. Consult doctor if persists."
-  };
   const lower = input.toLowerCase();
-  for (const k in responses) if (lower.includes(k)) return responses[k];
+  for (const symptom in medicalResponses) {
+    if (lower.includes(symptom)) return medicalResponses[symptom];
+  }
   return "Desculpe, não encontrei uma resposta específica. Recomendo consultar um médico.";
 }
 
@@ -139,12 +124,22 @@ async function sendMessage(){
 
 // === Eventos ===
 sendBtn.addEventListener('click',sendMessage);
-clearBtn.addEventListener('click',()=>{ clearChat(); chatCentral.chatHistory=[]; });
-medicalBtn.addEventListener('click',()=>{ userInput.value="Preciso de atendimento médico!"; sendMessage(); });
-userInput.addEventListener('keypress',(e)=>{ if(e.key==='Enter'){ e.preventDefault(); sendMessage(); } });
+clearBtn.addEventListener('click',()=>{
+  clearChat(); 
+  chatCentral.chatHistory=[];
+});
+medicalBtn.addEventListener('click',()=>{
+  userInput.value="Preciso de atendimento médico!"; 
+  sendMessage();
+});
+userInput.addEventListener('keypress',(e)=>{
+  if(e.key==='Enter'){ e.preventDefault(); sendMessage(); }
+});
 saveBtn.addEventListener('click',()=>{
   let text='';
-  chatCentral.chatHistory.forEach(msg=>{ text+=`${msg.role.toUpperCase()}: ${msg.content}\n`; });
+  chatCentral.chatHistory.forEach(msg=>{
+    text+=`${msg.role.toUpperCase()}: ${msg.content}\n`;
+  });
   const blob = new Blob([text],{type:'text/plain'});
   const link = document.createElement('a');
   link.download='chat_arceus.txt';
