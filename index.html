@@ -8,7 +8,6 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
-
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body { font-family: 'Roboto', sans-serif; background-color: #0a1d37; color: #fff; height: 100vh; display: flex; flex-direction: column; overflow: hidden; }
 .chat-container { flex: 1; display: flex; flex-direction: column; background-color: #17202a; border-left: 1px solid #333; position: relative; }
@@ -38,9 +37,9 @@ footer { background-color: #002f6c; color: #fff; text-align: center; padding: 10
   <div class="chat-body" id="chatBody"></div>
   <div class="chat-input">
     <input type="text" id="userInput" placeholder="Type your message...">
-    <button class="send" onclick="sendMessage()">Send</button>
-    <button class="clear" onclick="clearChat()">Clear</button>
-    <button class="medical" onclick="requestMedicalHelp()">
+    <button class="send">Send</button>
+    <button class="clear">Clear</button>
+    <button class="medical">
       <i class="fas fa-user-md"></i> Atender
     </button>
   </div>
@@ -49,7 +48,7 @@ footer { background-color: #002f6c; color: #fff; text-align: center; padding: 10
 <footer>BRNC GRUP AI ®</footer>
 
 <script>
-// === Biblioteca de respostas médicas ===
+// === Respostas médicas ===
 function getMedicalResponse(input) {
   const healthResponses = {
     "headache": "You can try resting, drinking water, and taking a mild pain reliever.",
@@ -72,19 +71,19 @@ function getMedicalResponse(input) {
     "migraine": "Severe migraines may need specific medication. Rest in a dark room and consult a doctor if frequent.",
     "back pain": "Maintain good posture and apply a warm compress. Consult a doctor if pain persists."
   };
-
   const lowerInput = input.toLowerCase();
   for (const symptom in healthResponses) {
-    if (lowerInput.includes(symptom.toLowerCase())) {
-      return healthResponses[symptom];
-    }
+    if (lowerInput.includes(symptom.toLowerCase())) return healthResponses[symptom];
   }
   return "Desculpe, não encontrei uma resposta específica. Recomendo consultar um médico.";
 }
 
-// === Funções do chat ===
+// === ChatCentral ===
 const chatBody = document.getElementById('chatBody');
 const userInput = document.getElementById('userInput');
+const sendButton = document.querySelector('.send');
+const clearButton = document.querySelector('.clear');
+const medicalButton = document.querySelector('.medical');
 
 function addMessage(role, content) {
   const msg = document.createElement('div');
@@ -96,20 +95,9 @@ function addMessage(role, content) {
 
 function clearChat() { chatBody.innerHTML = ''; }
 
-function requestMedicalHelp() {
-  userInput.value = "Preciso de atendimento médico!";
-  sendMessage();
-}
-
-// === ChatCentral e IRHX ===
 class ChatCentral {
-  constructor() {
-    this.chatHistory = [];
-    this.models = {};
-  }
-  registerModel(modelId, description, processFunction) {
-    this.models[modelId] = { description, process: processFunction };
-  }
+  constructor() { this.chatHistory = []; this.models = {}; }
+  registerModel(id, desc, fn) { this.models[id] = {desc, process: fn}; }
   async processInput(input) {
     const modelKey = Object.keys(this.models)[0];
     if (!modelKey) return "No model registered.";
@@ -120,13 +108,13 @@ class ChatCentral {
 
 const chatCentral = new ChatCentral();
 
-async function processWithIRHX(input, history) {
+async function processWithIRHX(input) {
   const medical = getMedicalResponse(input);
   if (!medical.startsWith("Desculpe")) return medical;
   return "IRHX processed your message: " + input;
 }
 
-chatCentral.registerModel('IRHX', 'IRHX Processing Engine', processWithIRHX);
+chatCentral.registerModel('IRHX', 'IRHX Engine', processWithIRHX);
 
 async function sendMessage() {
   const text = userInput.value.trim();
@@ -135,22 +123,28 @@ async function sendMessage() {
   chatCentral.addToHistory('user', text);
   userInput.value = '';
 
-  const typingElement = document.createElement('div');
-  typingElement.className = 'message bot';
-  typingElement.textContent = '...';
-  chatBody.appendChild(typingElement);
+  const typing = document.createElement('div');
+  typing.className = 'message bot';
+  typing.textContent = '...';
+  chatBody.appendChild(typing);
   chatBody.scrollTop = chatBody.scrollHeight;
 
-  const botResponse = await chatCentral.processInput(text);
+  const response = await chatCentral.processInput(text);
 
-  chatBody.removeChild(typingElement);
-  addMessage('bot', botResponse);
-  chatCentral.addToHistory('bot', botResponse);
+  chatBody.removeChild(typing);
+  addMessage('bot', response);
+  chatCentral.addToHistory('bot', response);
 }
 
-userInput.addEventListener('keypress', (e) => {
-  if (e.key === 'Enter') { e.preventDefault(); sendMessage(); }
+// === Eventos ===
+sendButton.addEventListener('click', sendMessage);
+clearButton.addEventListener('click', clearChat);
+medicalButton.addEventListener('click', () => {
+  userInput.value = "Preciso de atendimento médico!";
+  sendMessage();
 });
+
+userInput.addEventListener('keypress', (e) => { if(e.key==='Enter'){ e.preventDefault(); sendMessage(); } });
 
 // Mensagem inicial
 addMessage('bot', "Hello! I am Arceus AI, how can I assist you today?");
