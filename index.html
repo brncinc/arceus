@@ -173,10 +173,72 @@ class ChatCentral {
 const chatCentral = new ChatCentral();
 
 // Respostas médicas
-const healthResponses = {
-  <script src="medium.js"></script>
+   <script src="medium.js"></script>
   
+const healthResponses = {
+  "headache": "You can try resting, drinking water, and taking a mild pain reliever.",
+  "fever": "Consider taking an antipyretic and resting. If the fever persists, consult a doctor.",
+  "cough": "Cough can be a symptom of various conditions. If it persists, seek medical attention.",
+  "nausea": "Try drinking small sips of liquid and resting. If it persists, consult a doctor.",
+  "muscle pain": "Light stretching and rest can help alleviate the pain.",
+  "anxiety": "Try deep breathing, meditation, and if necessary, consult a therapist.",
+  "shortness of breath": "If you feel difficulty breathing, seek medical assistance immediately.",
+  "chest pain": "Chest pain can be an emergency sign, consult a doctor immediately.",
+  "dizziness": "Dizziness can have various causes. If it’s severe or persists, consult a doctor.",
+  "fatigue": "Fatigue can be caused by various reasons. Try resting and seek medical advice if it continues.",
+  "insomnia": "Try practicing relaxation techniques before bed. If insomnia persists, consult a doctor.",
+  "trouble swallowing": "This could be a symptom of various conditions, consult a doctor if it continues.",
+  "diarrhea": "Stay hydrated. If it persists for more than two days, consult a doctor.",
+  "constipation": "Try increasing fiber and water intake. If it doesn't improve, consult a doctor.",
+  "vomiting": "Try resting and drinking fluids slowly. If vomiting persists, consult a doctor.",
+  "eye irritation": "If you have itching, redness, or pain in your eyes, avoid rubbing them and consult an ophthalmologist.",
+  "allergy": "Avoid the allergen, and if necessary, take an antihistamine. If symptoms persist, consult a doctor.",
+  "migraine": "Severe migraines may need specific medication. Rest in a dark room and consult a doctor if frequent.",
+  "back pain": "Maintain good posture and apply a warm compress. Consult a doctor if pain persists.",
+}; 
+// Registro do modelo
+chatCentral.registerModel('Medical-Model', 'Medical Assistant', (input) => {
+  const lowerInput = input.toLowerCase();
+  for (const symptom in healthResponses) {
+    if (lowerInput.includes(symptom.toLowerCase())) {
+      return healthResponses[symptom];
+    }
+  }
+  return "Desculpe, não encontrei uma resposta específica. Recomendo consultar um médico.";
+});
+
+// Envio de mensagem
+async function sendMessage() {
+  const text = userInput.value.trim();
+  if (!text) return;
+  addMessage('user', text);
+  chatCentral.addToHistory('user', text);
+  userInput.value = '';
+
+  const typingElement = document.createElement('div');
+  typingElement.className = 'message bot';
+  typingElement.textContent = '...';
+  chatBody.appendChild(typingElement);
+  chatBody.scrollTop = chatBody.scrollHeight;
+
+  const botResponse = await chatCentral.processInput(text);
+
+  chatBody.removeChild(typingElement);
+  addMessage('bot', botResponse);
+  chatCentral.addToHistory('bot', botResponse);
+}
+
+// Enter envia mensagem
+userInput.addEventListener('keypress', (e) => {
+  if (e.key === 'Enter') { e.preventDefault(); sendMessage(); }
+});
+
+// Mensagem inicial
+addMessage('bot', "Hello! I am Arceus AI, how can I assist you today?");
+chatCentral.addToHistory('bot', "Hello! I am Arceus AI, how can I assist you today?");
 </script>
 
 </body>
 </html>
+  <script src="medium.js"></script>
+  
